@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
-import { ShieldCheck, User, Shield, HardHat, FileSearch, ArrowRight, Loader2 } from "lucide-react";
+import { ShieldCheck, User, Shield, HardHat, FileSearch, ArrowLeft, Loader2 } from "lucide-react";
 import { login, DEMO_USERS, isAuthenticated, getRoleHomeRoute } from "../services/auth";
 import toast from "react-hot-toast";
 
@@ -81,8 +81,11 @@ export default function LoginPage() {
       </div>
 
       {/* Right side: Login Form */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 sm:p-12">
-        <div className="w-full max-w-md">
+      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 sm:p-12 relative">
+        <Link to="/" className="absolute top-6 left-6 flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-ink transition-colors">
+          <ArrowLeft size={16} /> Back
+        </Link>
+        <div className="w-full max-w-md mt-8 lg:mt-0">
           <div className="lg:hidden flex items-center justify-center gap-2 font-display font-extrabold text-2xl mb-8 text-ink">
             <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-violet-deep text-white shadow-md">
               <ShieldCheck size={24} />
@@ -137,28 +140,28 @@ export default function LoginPage() {
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-             <button onClick={() => handleDemoLogin("citizen@civica.ai")} className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-colors text-left group">
+             <button type="button" onClick={() => handleDemoLogin("citizen@civica.ai")} className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-colors text-left group">
                <div className="w-8 h-8 rounded bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"><User size={16} /></div>
                <div>
                  <div className="text-xs font-bold text-ink">Citizen</div>
                  <div className="text-[10px] text-slate-400">Report & track</div>
                </div>
              </button>
-             <button onClick={() => handleDemoLogin("admin@civica.ai")} className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:border-purple-300 hover:bg-purple-50 transition-colors text-left group">
+             <button type="button" onClick={() => handleDemoLogin("admin@civica.ai")} className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:border-purple-300 hover:bg-purple-50 transition-colors text-left group">
                <div className="w-8 h-8 rounded bg-purple-100 text-purple-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"><Shield size={16} /></div>
                <div>
                  <div className="text-xs font-bold text-ink">Admin</div>
                  <div className="text-[10px] text-slate-400">Manage orders</div>
                </div>
              </button>
-             <button onClick={() => handleDemoLogin("contractor@civica.ai")} className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:border-green-300 hover:bg-green-50 transition-colors text-left group">
+             <button type="button" onClick={() => handleDemoLogin("contractor@civica.ai")} className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:border-green-300 hover:bg-green-50 transition-colors text-left group">
                <div className="w-8 h-8 rounded bg-green-100 text-green-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"><HardHat size={16} /></div>
                <div>
                  <div className="text-xs font-bold text-ink">Contractor</div>
                  <div className="text-[10px] text-slate-400">Execute tasks</div>
                </div>
              </button>
-             <button onClick={() => handleDemoLogin("auditor@civica.ai")} className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:border-orange-300 hover:bg-orange-50 transition-colors text-left group">
+             <button type="button" onClick={() => handleDemoLogin("auditor@civica.ai")} className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl hover:border-orange-300 hover:bg-orange-50 transition-colors text-left group">
                <div className="w-8 h-8 rounded bg-orange-100 text-orange-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"><FileSearch size={16} /></div>
                <div>
                  <div className="text-xs font-bold text-ink">Auditor</div>
