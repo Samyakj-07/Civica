@@ -81,9 +81,9 @@ function Header() {
           <a href="#metrics" className="hover:text-ink transition-colors">Impact</a>
         </nav>
         <div className="flex items-center gap-4">
-          <a href="#login" className="hidden text-sm font-bold text-muted hover:text-ink transition-colors md:block">Log In</a>
+          <Link to="/login" className="hidden text-sm font-bold text-muted hover:text-ink transition-colors md:block">Log In</Link>
           <Link
-            to="/create-case"
+            to="/signup"
             className="inline-block px-5 py-2.5 rounded-full bg-violet-deep text-white font-bold text-sm hover:bg-violet transition-colors shadow-lg shadow-violet/20 hover:scale-105 active:scale-95 transition-transform"
           >
             Get Started
@@ -131,13 +131,13 @@ function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link 
-            to="/create-case"
+            to="/login"
             className="w-full sm:w-auto px-10 py-4 rounded-full bg-ink text-white font-bold text-lg hover:bg-slate-800 transition-colors shadow-xl shadow-black/15 flex items-center justify-center gap-2 group hover:scale-105 active:scale-95 transition-transform"
           >
             Start Free Pilot <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link 
-            to="/dashboard"
+            to="/login"
             className="w-full sm:w-auto px-10 py-4 rounded-full bg-white text-ink font-bold text-lg border border-slate-200 hover:bg-slate-50 transition-colors shadow-sm flex items-center justify-center gap-2"
           >
             <Play size={18} className="text-violet" /> View Dashboard
