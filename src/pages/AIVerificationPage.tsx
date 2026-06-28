@@ -13,7 +13,8 @@ import {
   User,
   Activity,
   CheckSquare,
-  FileCheck
+  FileCheck,
+  FileText
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { getWorkOrderById, getIssueById, verifyRepair, updateWorkOrderStatus, updateWorkOrder } from "../services/api";
@@ -396,9 +397,14 @@ export default function AIVerificationPage() {
                     </div>
                   )}
                   {isPaymentReleased && (
-                     <div className="bg-mint/10 text-mint border border-mint/20 font-bold py-3 px-6 rounded-xl flex justify-center items-center gap-2">
-                        <CheckCircle2 size={18} />
-                        Payment successfully authorized and processed.
+                     <div className="flex flex-col gap-3">
+                       <div className="bg-mint/10 text-mint border border-mint/20 font-bold py-3 px-6 rounded-xl flex justify-center items-center gap-2">
+                          <CheckCircle2 size={18} />
+                          Payment successfully authorized and processed.
+                       </div>
+                       <Link to="/reports" className="w-full bg-white text-slate-600 font-bold py-3 px-6 rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors flex justify-center items-center gap-2">
+                         <FileText size={18} /> View Reports
+                       </Link>
                      </div>
                   )}
                 </motion.div>

@@ -179,9 +179,9 @@ export default function DashboardPage() {
         </div>
 
         <div className="flex items-center gap-3 w-full sm:w-auto">
-          <button className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-full text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">
+          <Link to="/reports" className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-full text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">
             <Download size={16} /> Export Report
-          </button>
+          </Link>
           <Link to="/create-case" className="flex items-center gap-2 px-4 py-2 bg-violet-deep text-white rounded-full text-sm font-bold shadow-md shadow-violet/20 hover:bg-violet transition-colors">
             <Plus size={16} /> Create Civic Case
           </Link>
