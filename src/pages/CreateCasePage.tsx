@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { 
@@ -16,6 +16,9 @@ import {
   Zap,
   ThumbsUp
 } from "lucide-react";
+import toast from "react-hot-toast";
+import { Issue, AIAnalysis } from "../types";
+import { analyzeIssue, generateIssueId, saveIssue, createWorkOrderFromIssue } from "../services/api";
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -28,10 +31,19 @@ const staggerContainer = {
 };
 
 export default function CreateCasePage() {
+  const navigate = useNavigate();
+
+  // Form State
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [urgency, setUrgency] = useState("Medium");
+  
+  // File & Analysis State
   const [file, setFile] = useState<File | null>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [scanComplete, setScanComplete] = useState(false);
-  const navigate = useNavigate();
+  const [aiAnalysis, setAiAnalysis] = useState<AIAnalysis | null>(null);
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -46,14 +58,45 @@ export default function CreateCasePage() {
     }
   };
 
-  const startUpload = (uploadedFile: File) => {
+  const startUpload = async (uploadedFile: File) => {
     setFile(uploadedFile);
     setIsScanning(true);
-    // Simulate AI scanning delay
-    setTimeout(() => {
-      setIsScanning(false);
-      setScanComplete(true);
-    }, 2500);
+    
+    // Simulate AI scanning and analyze issue
+    const mockIssuePartial = { title, category, description, urgency };
+    const analysis = await analyzeIssue(mockIssuePartial);
+    
+    setAiAnalysis(analysis);
+    setIsScanning(false);
+    setScanComplete(true);
+  };
+
+  const handleCreateWorkOrder = () => {
+    if (!aiAnalysis) return;
+
+    const issueId = generateIssueId();
+    const newIssue: Issue = {
+      id: issueId,
+      title: title || 'Untitled Issue',
+      category: category || aiAnalysis.category,
+      description,
+      urgency,
+      severity: aiAnalysis.severity,
+      location: 'Auto-detected: Block B, Sector 4',
+      reportedBy: 'Citizen App',
+      createdAt: new Date().toISOString(),
+      beforeImageUrl: file ? URL.createObjectURL(file) : '',
+      status: 'Reported',
+      aiAnalysis
+    };
+
+    saveIssue(newIssue);
+    const workOrder = createWorkOrderFromIssue(newIssue, aiAnalysis);
+    
+    toast.success("Work Order successfully created!");
+    
+    // Navigate to the newly created work order
+    navigate(`/work-order/${workOrder.id}`);
   };
 
   return (
@@ -62,7 +105,7 @@ export default function CreateCasePage() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.3 }}
-      className="min-h-screen bg-[#FAFAFA] text-ink font-sans"
+      className="min-h-screen bg-[#FAFAFA] text-ink font-sans flex flex-col"
     >
       {/* Navbar */}
       <header className="bg-white border-b border-slate-200 px-6 py-3 flex justify-between items-center sticky top-0 z-50">
@@ -83,7 +126,7 @@ export default function CreateCasePage() {
           <button className="text-sm font-bold text-muted hover:text-ink px-4 py-2">Cancel</button>
           <button 
             disabled={!scanComplete}
-            onClick={() => navigate('/work-order')}
+            onClick={handleCreateWorkOrder}
             className={`px-5 py-2 rounded-full font-bold text-sm transition-all ${
               scanComplete 
                 ? 'bg-violet-deep text-white shadow-md shadow-violet/20 hover:bg-violet' 
@@ -95,7 +138,7 @@ export default function CreateCasePage() {
         </div>
       </header>
 
-      <main className="max-w-[1400px] mx-auto p-4 md:p-6">
+      <main className="max-w-[1400px] mx-auto p-4 md:p-6 flex-1 w-full">
         <div className="mb-4">
           <h1 className="text-2xl font-display font-extrabold mb-1">Create Civic Case</h1>
           <p className="text-sm text-muted font-medium mb-4">Upload issue evidence to generate an AI-verified work order.</p>
@@ -125,30 +168,54 @@ export default function CreateCasePage() {
               <div className="space-y-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">Issue Title</label>
-                  <input type="text" placeholder="e.g., Water leakage near Block B" className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet transition-all bg-slate-50 text-sm" />
+                  <input 
+                    type="text" 
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="e.g., Water leakage near Block B" 
+                    className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet transition-all bg-slate-50 text-sm" 
+                  />
                 </div>
                 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">Category</label>
-                  <select className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet transition-all bg-slate-50 text-slate-700 text-sm">
-                    <option>Select Category...</option>
-                    <option>Water & Sanitation</option>
-                    <option>Roads & Transport</option>
-                    <option>Electrical & Lighting</option>
-                    <option>Waste Management</option>
+                  <select 
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet transition-all bg-slate-50 text-slate-700 text-sm"
+                  >
+                    <option value="">Select Category...</option>
+                    <option value="Water & Sanitation">Water & Sanitation</option>
+                    <option value="Roads & Transport">Roads & Transport</option>
+                    <option value="Electrical & Lighting">Electrical & Lighting</option>
+                    <option value="Waste Management">Waste Management</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">Description (Optional)</label>
-                  <textarea rows={2} placeholder="Add any specific details..." className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet transition-all bg-slate-50 resize-none text-sm" />
+                  <textarea 
+                    rows={2} 
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Add any specific details..." 
+                    className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet transition-all bg-slate-50 resize-none text-sm" 
+                  />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">Urgency Level</label>
                   <div className="flex gap-2">
                     {['Low', 'Medium', 'High'].map(level => (
-                      <button key={level} className="flex-1 py-2 rounded-xl border border-slate-200 text-sm font-bold text-muted hover:border-slate-300 hover:bg-slate-50 transition-colors">
+                      <button 
+                        key={level} 
+                        onClick={() => setUrgency(level)}
+                        className={`flex-1 py-2 rounded-xl border text-sm font-bold transition-colors ${
+                          urgency === level 
+                            ? 'border-violet bg-violet/5 text-violet' 
+                            : 'border-slate-200 text-muted hover:border-slate-300 hover:bg-slate-50'
+                        }`}
+                      >
                         {level}
                       </button>
                     ))}
@@ -340,22 +407,22 @@ export default function CreateCasePage() {
                   </div>
                 )}
 
-                {scanComplete && (
+                {scanComplete && aiAnalysis && (
                   <motion.div 
                     initial="hidden"
                     animate="visible"
                     variants={staggerContainer}
                     className="space-y-2"
                   >
-                    <DNAField icon={<ShieldCheck size={14} />} label="Detected Issue" value="Water Leakage" color="text-mint" />
-                    <DNAField icon={<Layers size={14} />} label="Category" value="Water & Sanitation" />
-                    <DNAField icon={<AlertTriangle size={14} />} label="Severity" value="High" color="text-coral" />
-                    <DNAField icon={<MapPin size={14} />} label="Location Confidence" value="92%" />
-                    <DNAField icon={<ShieldCheck size={14} />} label="Duplicate Risk" value="Low" />
-                    <DNAField icon={<ThumbsUp size={14} />} label="Evidence Strength" value="Strong" color="text-mint" />
-                    <DNAField icon={<Clock size={14} />} label="Suggested SLA" value="24 hours" />
-                    <DNAField icon={<Users size={14} />} label="Responsible Team" value="Water Maintenance" />
-                    <DNAField icon={<Zap size={14} />} label="Recommended Action" value="Immediate inspection" color="text-amber" />
+                    <DNAField icon={<ShieldCheck size={14} />} label="Detected Issue" value={aiAnalysis.detectedIssue} color="text-mint" />
+                    <DNAField icon={<Layers size={14} />} label="Category" value={aiAnalysis.category} />
+                    <DNAField icon={<AlertTriangle size={14} />} label="Severity" value={aiAnalysis.severity} color={aiAnalysis.severity === 'High' ? 'text-coral' : 'text-amber'} />
+                    <DNAField icon={<MapPin size={14} />} label="Location Confidence" value={aiAnalysis.locationConfidence} />
+                    <DNAField icon={<ShieldCheck size={14} />} label="Duplicate Risk" value={aiAnalysis.duplicateRisk} />
+                    <DNAField icon={<ThumbsUp size={14} />} label="Evidence Strength" value={aiAnalysis.evidenceStrength} color="text-mint" />
+                    <DNAField icon={<Clock size={14} />} label="Suggested SLA" value={aiAnalysis.suggestedSLA} />
+                    <DNAField icon={<Users size={14} />} label="Responsible Team" value={aiAnalysis.responsibleTeam} />
+                    <DNAField icon={<Zap size={14} />} label="Recommended Action" value="Generated dynamically" color="text-amber" />
                   </motion.div>
                 )}
               </div>
@@ -381,7 +448,7 @@ function DNAField({ icon, label, value, color = "text-white" }: { icon: React.Re
         <span className="opacity-70">{icon}</span>
         {label}
       </div>
-      <div className={`text-xs font-bold ${color}`}>{value}</div>
+      <div className={`text-xs font-bold ${color} text-right truncate max-w-[150px]`} title={value}>{value}</div>
     </motion.div>
   );
 }

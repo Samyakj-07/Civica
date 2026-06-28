@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { 
   ShieldCheck, 
   ArrowLeft,
@@ -12,10 +12,31 @@ import {
   Lock,
   Camera,
   Video,
-  FileText
+  FileText,
+  Loader2
 } from "lucide-react";
+import toast from "react-hot-toast";
+import { getWorkOrderById, getIssueById, MOCK_CONTRACTORS } from "../services/api";
+import { WorkOrder, Issue } from "../types";
 
 export default function ContractorTaskPage() {
+  const { id } = useParams<{ id: string }>();
+  const [workOrder, setWorkOrder] = useState<WorkOrder | null>(null);
+  const [issue, setIssue] = useState<Issue | null>(null);
+
+  useEffect(() => {
+    if (id) {
+      const wo = getWorkOrderById(id);
+      if (wo) {
+        setWorkOrder(wo);
+        const parentIssue = getIssueById(wo.issueId);
+        if (parentIssue) {
+          setIssue(parentIssue);
+        }
+      }
+    }
+  }, [id]);
+
   const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadComplete, setUploadComplete] = useState(false);
@@ -40,8 +61,27 @@ export default function ContractorTaskPage() {
     setTimeout(() => {
       setIsUploading(false);
       setUploadComplete(true);
+      toast.success("Repair proof verified by AI");
     }, 2000);
   };
+
+  const handleSubmitProof = () => {
+    toast.success("Payment conditionally released!");
+    // You could also navigate back to dashboard or show a completion modal here
+  };
+
+  if (!workOrder || !issue) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#FAFAFA]">
+        <div className="text-center text-slate-500">
+          <Loader2 size={32} className="animate-spin mx-auto mb-4" />
+          <p>Loading Task...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const assignedContractor = workOrder.assignedContractor || MOCK_CONTRACTORS[0];
 
   return (
     <motion.div 
@@ -71,6 +111,7 @@ export default function ContractorTaskPage() {
           </button>
           <button 
             disabled={!uploadComplete}
+            onClick={handleSubmitProof}
             className={`px-5 py-2 rounded-full font-bold text-sm shadow-md transition-colors ${uploadComplete ? 'bg-violet-deep text-white shadow-violet/20 hover:bg-violet' : 'bg-slate-100 text-slate-400 cursor-not-allowed shadow-none'}`}
           >
             Submit Verified Proof
@@ -101,8 +142,8 @@ export default function ContractorTaskPage() {
                   <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=256&auto=format&fit=crop" alt="Technician" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">AquaFix Services</div>
-                  <div className="text-sm font-extrabold text-ink">Ravi Kumar</div>
+                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">{assignedContractor.name}</div>
+                  <div className="text-sm font-extrabold text-ink">Assigned Tech</div>
                 </div>
               </div>
             </div>
@@ -114,30 +155,33 @@ export default function ContractorTaskPage() {
               </div>
               
               <div className="w-full h-24 bg-slate-100 rounded-xl mb-4 relative overflow-hidden group border border-slate-200">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center" />
+                <div 
+                  className="absolute inset-0 bg-cover bg-center" 
+                  style={{ backgroundImage: issue.beforeImageUrl ? `url(${issue.beforeImageUrl})` : `url('https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?q=80&w=800&auto=format&fit=crop')` }} 
+                />
                 <div className="absolute bottom-2 left-2 bg-black/60 text-white text-[9px] uppercase font-bold px-2 py-0.5 rounded backdrop-blur-sm">Before</div>
               </div>
 
               <div className="space-y-3">
                 <div>
                   <div className="text-[10px] text-slate-400 font-bold mb-0.5 uppercase tracking-wider">Work Order</div>
-                  <div className="text-sm font-bold text-violet">WO-2026-0184</div>
+                  <div className="text-sm font-bold text-violet">{workOrder.workOrderId}</div>
                 </div>
                 <div>
                   <div className="text-[10px] text-slate-400 font-bold mb-0.5 uppercase tracking-wider">Issue</div>
-                  <div className="text-sm font-bold text-ink">Water leakage near Block B</div>
+                  <div className="text-sm font-bold text-ink">{issue.title}</div>
                 </div>
                 <div>
                   <div className="text-[10px] text-slate-400 font-bold mb-0.5 uppercase tracking-wider">Location</div>
-                  <div className="text-sm font-bold text-ink flex items-center gap-1"><MapPin size={12} className="text-coral" /> Block B Service Road</div>
+                  <div className="text-sm font-bold text-ink flex items-center gap-1"><MapPin size={12} className="text-coral" /> {issue.location}</div>
                 </div>
                 <div>
                   <div className="text-[10px] text-slate-400 font-bold mb-0.5 uppercase tracking-wider">Deadline</div>
-                  <div className="text-sm font-bold text-coral flex items-center gap-1"><Clock size={12} /> Today, 6:00 PM</div>
+                  <div className="text-sm font-bold text-coral flex items-center gap-1"><Clock size={12} /> {workOrder.slaDeadline}</div>
                 </div>
                 <div>
                   <div className="text-[10px] text-slate-400 font-bold mb-0.5 uppercase tracking-wider">Estimated Cost</div>
-                  <div className="text-sm font-bold text-ink">₹8,500</div>
+                  <div className="text-sm font-bold text-ink">{workOrder.estimatedCost}</div>
                 </div>
               </div>
             </div>
@@ -157,8 +201,8 @@ export default function ContractorTaskPage() {
               
               <div className="space-y-2.5">
                 {[
-                  { label: "Inspect pipeline near Block B", checked: true },
-                  { label: "Stop active leakage", checked: true },
+                  { label: workOrder.repairInstructions.split('.')[0] || "Follow repair instructions", checked: true },
+                  { label: "Stop active issue spread", checked: true },
                   { label: "Replace damaged section if required", checked: true },
                   { label: "Clean repair area", checked: false },
                   { label: "Upload after-repair photo", checked: uploadComplete },
@@ -292,7 +336,7 @@ export default function ContractorTaskPage() {
                 </div>
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-xs font-bold text-slate-400">Potential Release</span>
-                  <span className="text-sm font-extrabold text-mint">₹8,500</span>
+                  <span className="text-sm font-extrabold text-mint">{workOrder.estimatedCost}</span>
                 </div>
                 {uploadComplete ? (
                   <div className="pt-2 mt-2 border-t border-slate-700 text-[10px] text-amber font-bold text-center">
@@ -312,7 +356,7 @@ export default function ContractorTaskPage() {
               
               <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
                 <span className="text-sm font-bold text-slate-600">Current Score</span>
-                <span className="text-lg font-extrabold text-ink">4.6<span className="text-sm text-slate-400">/5</span></span>
+                <span className="text-lg font-extrabold text-ink">{assignedContractor.contractorScore}<span className="text-sm text-slate-400">/5</span></span>
               </div>
 
               <div className="space-y-2">
@@ -370,6 +414,7 @@ export default function ContractorTaskPage() {
             <button className="px-4 py-1.5 rounded-full border border-slate-200 font-bold text-xs text-slate-600 hover:bg-slate-50 transition-colors hidden sm:block">Need Help?</button>
             <button 
               disabled={!uploadComplete}
+              onClick={handleSubmitProof}
               className={`px-4 py-1.5 rounded-full font-bold text-xs shadow-md transition-colors ${uploadComplete ? 'bg-violet-deep text-white shadow-violet/20 hover:bg-violet' : 'bg-slate-100 text-slate-400 cursor-not-allowed shadow-none'}`}
             >
               Submit Verified Proof

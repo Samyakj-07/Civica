@@ -1,21 +1,59 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { 
   ShieldCheck, 
   ArrowLeft,
   MapPin, 
-  AlertTriangle,
   CheckCircle2,
-  Clock,
-  Users,
-  Image as ImageIcon,
   CheckSquare,
   Lock,
-  ChevronDown
+  ChevronDown,
+  Loader2
 } from "lucide-react";
+import toast from "react-hot-toast";
+import { getWorkOrderById, getIssueById, updateWorkOrderStatus, MOCK_CONTRACTORS } from "../services/api";
+import { WorkOrder, Issue } from "../types";
 
 export default function WorkOrderReviewPage() {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  
+  const [workOrder, setWorkOrder] = useState<WorkOrder | null>(null);
+  const [issue, setIssue] = useState<Issue | null>(null);
+
+  useEffect(() => {
+    if (id) {
+      const wo = getWorkOrderById(id);
+      if (wo) {
+        setWorkOrder(wo);
+        const parentIssue = getIssueById(wo.issueId);
+        if (parentIssue) {
+          setIssue(parentIssue);
+        }
+      }
+    }
+  }, [id]);
+
+  if (!workOrder || !issue) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#FAFAFA]">
+        <div className="text-center text-slate-500">
+          <Loader2 size={32} className="animate-spin mx-auto mb-4" />
+          <p>Loading Work Order...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const handleAssignContractor = () => {
+    updateWorkOrderStatus(workOrder.id, 'Contractor Assigned');
+    toast.success("Contractor successfully assigned!");
+    navigate(`/contractor-task/${workOrder.id}`);
+  };
+
+  const topContractor = MOCK_CONTRACTORS.find(c => c.isTopMatch);
+  const altContractors = MOCK_CONTRACTORS.filter(c => !c.isTopMatch);
 
   return (
     <motion.div 
@@ -42,7 +80,7 @@ export default function WorkOrderReviewPage() {
         <div className="flex items-center gap-3">
           <button className="text-sm font-bold text-muted hover:text-ink px-4 py-2">Cancel</button>
           <button className="text-sm font-bold text-ink hover:text-violet px-4 py-2 border border-slate-200 rounded-full hover:bg-slate-50 transition-colors">Save Draft</button>
-          <button onClick={() => navigate('/contractor-task')} className="px-5 py-2 rounded-full bg-violet-deep text-white font-bold text-sm shadow-md shadow-violet/20 hover:bg-violet transition-colors">
+          <button onClick={handleAssignContractor} className="px-5 py-2 rounded-full bg-violet-deep text-white font-bold text-sm shadow-md shadow-violet/20 hover:bg-violet transition-colors">
             Assign Verified Work Order
           </button>
         </div>
@@ -70,34 +108,37 @@ export default function WorkOrderReviewPage() {
               <h2 className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">Issue Summary</h2>
               
               <div className="w-full h-24 bg-slate-100 rounded-xl mb-3 relative overflow-hidden group border border-slate-200">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center" />
+                <div 
+                  className="absolute inset-0 bg-cover bg-center" 
+                  style={{ backgroundImage: issue.beforeImageUrl ? `url(${issue.beforeImageUrl})` : `url('https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?q=80&w=800&auto=format&fit=crop')` }} 
+                />
                 <div className="absolute bottom-2 left-2 bg-black/60 text-white text-[9px] uppercase font-bold px-2 py-0.5 rounded backdrop-blur-sm">Before</div>
               </div>
 
               <div className="space-y-2.5">
                 <div>
                   <div className="text-xs text-slate-400 font-bold mb-1">Issue</div>
-                  <div className="text-sm font-bold text-ink">Water leakage near Block B</div>
+                  <div className="text-sm font-bold text-ink">{issue.title}</div>
                 </div>
                 <div>
                   <div className="text-xs text-slate-400 font-bold mb-1">Category</div>
-                  <div className="text-sm font-bold text-ink">Water & Sanitation</div>
+                  <div className="text-sm font-bold text-ink">{issue.category}</div>
                 </div>
                 <div>
                   <div className="text-xs text-slate-400 font-bold mb-1">Severity</div>
-                  <div className="text-sm font-bold text-coral">High</div>
+                  <div className="text-sm font-bold text-coral">{issue.severity}</div>
                 </div>
                 <div>
                   <div className="text-xs text-slate-400 font-bold mb-1">Location</div>
-                  <div className="text-sm font-bold text-ink">Block B Service Road</div>
+                  <div className="text-sm font-bold text-ink">{issue.location}</div>
                 </div>
                 <div className="pt-4 border-t border-slate-100">
                   <div className="text-xs text-slate-400 font-bold mb-1">Reported by</div>
-                  <div className="text-sm font-bold text-ink">Citizen App</div>
+                  <div className="text-sm font-bold text-ink">{issue.reportedBy}</div>
                 </div>
                 <div>
                   <div className="text-xs text-slate-400 font-bold mb-1">Created</div>
-                  <div className="text-sm font-bold text-ink">Today, 11:42 AM</div>
+                  <div className="text-sm font-bold text-ink">{new Date(issue.createdAt).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}</div>
                 </div>
               </div>
 
@@ -115,11 +156,11 @@ export default function WorkOrderReviewPage() {
               <div className="flex justify-between items-start mb-5 pb-4 border-b border-slate-100">
                 <div>
                   <h2 className="text-sm font-bold uppercase tracking-wide text-slate-400 mb-1">Work Order ID</h2>
-                  <div className="text-2xl font-display font-extrabold text-ink">WO-2026-0184</div>
+                  <div className="text-2xl font-display font-extrabold text-ink">{workOrder.workOrderId}</div>
                 </div>
                 <div className="text-right">
                   <div className="text-sm font-bold text-slate-400 mb-1">Priority Score</div>
-                  <div className="text-2xl font-display font-extrabold text-violet">87<span className="text-slate-300 text-lg">/100</span></div>
+                  <div className="text-2xl font-display font-extrabold text-violet">{workOrder.priorityScore}<span className="text-slate-300 text-lg">/100</span></div>
                 </div>
               </div>
 
@@ -127,8 +168,11 @@ export default function WorkOrderReviewPage() {
                 <div>
                   <label className="block text-xs font-bold text-slate-500 mb-2">SLA Deadline</label>
                   <div className="relative">
-                    <select className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet appearance-none font-bold text-sm bg-slate-50 cursor-pointer">
-                      <option>24 Hours (Urgent)</option>
+                    <select 
+                      defaultValue={workOrder.slaDeadline}
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet appearance-none font-bold text-sm bg-slate-50 cursor-pointer"
+                    >
+                      <option>{workOrder.slaDeadline}</option>
                       <option>48 Hours</option>
                       <option>7 Days</option>
                     </select>
@@ -138,8 +182,11 @@ export default function WorkOrderReviewPage() {
                 <div>
                   <label className="block text-xs font-bold text-slate-500 mb-2">Department</label>
                   <div className="relative">
-                    <select className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet appearance-none font-bold text-sm bg-slate-50 cursor-pointer">
-                      <option>Water Maintenance</option>
+                    <select 
+                      defaultValue={workOrder.department}
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet appearance-none font-bold text-sm bg-slate-50 cursor-pointer"
+                    >
+                      <option>{workOrder.department}</option>
                       <option>Roads</option>
                       <option>Electrical</option>
                     </select>
@@ -148,11 +195,11 @@ export default function WorkOrderReviewPage() {
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-500 mb-2">Required Action</label>
-                  <input type="text" defaultValue="Inspect and repair suspected pipeline leakage" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet text-sm font-bold bg-slate-50" />
+                  <input type="text" defaultValue={workOrder.requiredAction} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet text-sm font-bold bg-slate-50" />
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-500 mb-2">Estimated Cost</label>
-                  <input type="text" defaultValue="₹8,500" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet text-sm font-bold bg-slate-50" />
+                  <input type="text" defaultValue={workOrder.estimatedCost} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet text-sm font-bold bg-slate-50" />
                 </div>
               </div>
 
@@ -163,7 +210,7 @@ export default function WorkOrderReviewPage() {
                 </label>
                 <textarea 
                   rows={3} 
-                  defaultValue="Inspect pipeline near Block B service road. Upload after-repair photo, 10-second video, GPS timestamp, and material usage details before closure." 
+                  defaultValue={workOrder.repairInstructions}
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet text-xs leading-relaxed bg-slate-50 resize-none font-medium" 
                 />
               </div>
@@ -178,49 +225,53 @@ export default function WorkOrderReviewPage() {
               <div className="absolute top-0 right-0 bg-violet text-white text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded-bl-lg">Top Match</div>
               <h2 className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">Suggested Contractor</h2>
               
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-violet-deep to-violet text-white flex items-center justify-center font-bold text-lg shadow-md">A</div>
-                <div>
-                  <div className="font-extrabold text-lg text-ink">AquaFix Services</div>
-                  <div className="text-xs font-bold text-slate-500">Tier 1 Vendor</div>
-                </div>
-              </div>
+              {topContractor && (
+                <>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-violet-deep to-violet text-white flex items-center justify-center font-bold text-lg shadow-md">
+                      {topContractor.name.charAt(0)}
+                    </div>
+                    <div>
+                      <div className="font-extrabold text-lg text-ink">{topContractor.name}</div>
+                      <div className="text-xs font-bold text-slate-500">{topContractor.tier}</div>
+                    </div>
+                  </div>
 
-              <div className="grid grid-cols-2 gap-y-2 gap-x-2 mb-4">
-                <div>
-                  <div className="text-[9px] font-bold text-slate-400 uppercase">Contractor Score</div>
-                  <div className="text-xs font-bold text-ink">4.6/5 <span className="text-amber">★</span></div>
-                </div>
-                <div>
-                  <div className="text-[9px] font-bold text-slate-400 uppercase">SLA Compliance</div>
-                  <div className="text-xs font-bold text-mint">92%</div>
-                </div>
-                <div>
-                  <div className="text-[9px] font-bold text-slate-400 uppercase">Repeat Failure</div>
-                  <div className="text-xs font-bold text-ink">3.1%</div>
-                </div>
-                <div>
-                  <div className="text-[9px] font-bold text-slate-400 uppercase">Avg Repair Time</div>
-                  <div className="text-xs font-bold text-ink">18 hours</div>
-                </div>
-              </div>
+                  <div className="grid grid-cols-2 gap-y-2 gap-x-2 mb-4">
+                    <div>
+                      <div className="text-[9px] font-bold text-slate-400 uppercase">Contractor Score</div>
+                      <div className="text-xs font-bold text-ink">{topContractor.contractorScore}/5 <span className="text-amber">★</span></div>
+                    </div>
+                    <div>
+                      <div className="text-[9px] font-bold text-slate-400 uppercase">SLA Compliance</div>
+                      <div className="text-xs font-bold text-mint">{topContractor.slaCompliance}</div>
+                    </div>
+                    <div>
+                      <div className="text-[9px] font-bold text-slate-400 uppercase">Repeat Failure</div>
+                      <div className="text-xs font-bold text-ink">{topContractor.repeatFailureRate}</div>
+                    </div>
+                    <div>
+                      <div className="text-[9px] font-bold text-slate-400 uppercase">Avg Repair Time</div>
+                      <div className="text-xs font-bold text-ink">{topContractor.averageRepairTime}</div>
+                    </div>
+                  </div>
 
-              <div className="flex gap-2">
-                <button className="flex-1 py-1.5 rounded-lg bg-violet-deep text-white font-bold text-xs hover:bg-violet transition-colors">Assign</button>
-                <button className="px-3 py-1.5 rounded-lg border border-slate-200 font-bold text-xs text-slate-500 hover:text-ink transition-colors">Compare</button>
-              </div>
+                  <div className="flex gap-2">
+                    <button onClick={handleAssignContractor} className="flex-1 py-1.5 rounded-lg bg-violet-deep text-white font-bold text-xs hover:bg-violet transition-colors">Assign</button>
+                    <button className="px-3 py-1.5 rounded-lg border border-slate-200 font-bold text-xs text-slate-500 hover:text-ink transition-colors">Compare</button>
+                  </div>
+                </>
+              )}
 
               <div className="mt-3 pt-3 border-t border-slate-100">
                 <div className="text-[9px] font-bold text-slate-400 uppercase mb-2">Alternate Contractors</div>
                 <div className="space-y-1">
-                  <div className="flex justify-between items-center text-xs group cursor-pointer hover:bg-slate-50 p-1 rounded -mx-1">
-                    <span className="font-bold text-slate-600 group-hover:text-ink">UrbanFlow Repairs</span>
-                    <span className="font-bold text-slate-400">4.3/5</span>
-                  </div>
-                  <div className="flex justify-between items-center text-xs group cursor-pointer hover:bg-slate-50 p-1 rounded -mx-1">
-                    <span className="font-bold text-slate-600 group-hover:text-ink">JalCare Works</span>
-                    <span className="font-bold text-slate-400">4.1/5</span>
-                  </div>
+                  {altContractors.map(contractor => (
+                    <div key={contractor.id} className="flex justify-between items-center text-xs group cursor-pointer hover:bg-slate-50 p-1 rounded -mx-1">
+                      <span className="font-bold text-slate-600 group-hover:text-ink">{contractor.name}</span>
+                      <span className="font-bold text-slate-400">{contractor.contractorScore}/5</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -291,7 +342,7 @@ export default function WorkOrderReviewPage() {
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <button className="px-3 py-1.5 rounded-full border border-slate-200 font-bold text-xs text-slate-600 hover:bg-slate-50 transition-colors hidden sm:block">Edit</button>
-            <button onClick={() => navigate('/contractor-task')} className="px-4 py-1.5 rounded-full bg-violet-deep text-white font-bold text-xs shadow-md shadow-violet/20 hover:bg-violet transition-colors">
+            <button onClick={handleAssignContractor} className="px-4 py-1.5 rounded-full bg-violet-deep text-white font-bold text-xs shadow-md shadow-violet/20 hover:bg-violet transition-colors">
               Assign Verified Work Order
             </button>
           </div>
