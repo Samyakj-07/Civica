@@ -1,4 +1,5 @@
 import { Issue, IssueStatus, WorkOrder, Contractor, AIAnalysis, AIVerificationResult } from '../types';
+import { getCurrentUser } from './auth';
 
 // Mock Data
 export const MOCK_CONTRACTORS: Contractor[] = [
@@ -35,6 +36,21 @@ export const MOCK_CONTRACTORS: Contractor[] = [
 ];
 
 // Utility Functions
+export const createIssue = (issueData: Partial<Issue>) => {
+  const user = getCurrentUser();
+  const newIssue: Issue = {
+    ...issueData as Issue,
+    id: `CASE-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`,
+    createdAt: new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+    status: 'Reported',
+    createdByUserId: user?.email,
+    createdByName: user?.name,
+    createdByRole: user?.role
+  };
+  saveIssue(newIssue);
+  return newIssue;
+};
+
 export const generateIssueId = () => `ISS-${Math.floor(10000 + Math.random() * 90000)}`;
 export const generateWorkOrderId = () => `WO-2026-${Math.floor(1000 + Math.random() * 9000)}`;
 
@@ -110,6 +126,7 @@ export const getIssueById = (id: string): Issue | undefined => {
 export const verifyRepair = async (workOrder: WorkOrder): Promise<AIVerificationResult> => {
   return new Promise((resolve) => {
     setTimeout(() => {
+      const user = getCurrentUser();
       resolve({
         repairConfidence: 91,
         sameLocationMatch: 94,
@@ -119,13 +136,16 @@ export const verifyRepair = async (workOrder: WorkOrder): Promise<AIVerification
         evidenceTamperRisk: 'Low',
         repairQuality: 'Good',
         recommendation: 'Release Payment',
-        reason: 'All verification checks passed. Repair evidence matches the original issue and confidence is above the payment threshold.'
+        reason: 'All verification checks passed. Repair evidence matches the original issue and confidence is above the payment threshold.',
+        verifiedByUserId: user?.email,
+        verifiedByName: user?.name
       });
     }, 3000);
   });
 };
 
 export const createWorkOrderFromIssue = (issue: Issue, aiAnalysis: AIAnalysis): WorkOrder => {
+  const user = getCurrentUser();
   const workOrder: WorkOrder = {
     id: generateWorkOrderId(),
     issueId: issue.id,
@@ -149,11 +169,12 @@ export const createWorkOrderFromIssue = (issue: Issue, aiAnalysis: AIAnalysis): 
   workOrders.push(workOrder);
   localStorage.setItem(WORK_ORDERS_KEY, JSON.stringify(workOrders));
   
-  // Update issue status
   updateIssueStatus(issue.id, 'Work Order Created');
   
   return workOrder;
 };
+
+
 
 export const getWorkOrders = (): WorkOrder[] => {
   const data = localStorage.getItem(WORK_ORDERS_KEY);
@@ -171,34 +192,57 @@ export const updateWorkOrderStatus = (id: string, status: IssueStatus) => {
     workOrders[index].status = status;
     localStorage.setItem(WORK_ORDERS_KEY, JSON.stringify(workOrders));
     
-    // Also update associated issue
     updateIssueStatus(workOrders[index].issueId, status);
   }
 };
 
-export const updateWorkOrder = (id: string, updatedData: Partial<WorkOrder>) => {
+export const updateWorkOrder = (id: string, updates: Partial<WorkOrder>) => {
   const workOrders = getWorkOrders();
-  const index = workOrders.findIndex(wo => wo.id === id || wo.workOrderId === id);
-  if (index !== -1) {
-    workOrders[index] = { ...workOrders[index], ...updatedData };
-    localStorage.setItem(WORK_ORDERS_KEY, JSON.stringify(workOrders));
-  }
+  const user = getCurrentUser();
+  const newWorkOrders = workOrders.map(wo => {
+    if (wo.id === id || wo.workOrderId === id) {
+      const updatedWO = { ...wo, ...updates };
+      if (updates.afterRepairImageUrl && !wo.afterRepairImageUrl) {
+         updatedWO.uploadedByUserId = user?.email;
+         updatedWO.uploadedByName = user?.name;
+         updatedWO.uploadedByContractor = user?.contractorName;
+      }
+      if (updates.status === 'Contractor Assigned' && wo.status !== 'Contractor Assigned') {
+         updatedWO.assignedByUserId = user?.email;
+         updatedWO.assignedByName = user?.name;
+      }
+      if (updates.status === 'Payment Released' && wo.status !== 'Payment Released') {
+         updatedWO.approvedByUserId = user?.email;
+         updatedWO.approvedByName = user?.name;
+      }
+      return updatedWO;
+    }
+    return wo;
+  });
+  localStorage.setItem(WORK_ORDERS_KEY, JSON.stringify(newWorkOrders));
 };
 
 export const approveAllPendingPayments = () => {
   const workOrders = getWorkOrders();
+  const user = getCurrentUser();
   let updated = false;
   
-  workOrders.forEach(wo => {
+  const newWorkOrders = workOrders.map(wo => {
     if (wo.verificationResult?.recommendation === 'Release Payment' && wo.status !== 'Payment Released') {
-      wo.status = 'Payment Released';
-      updateIssueStatus(wo.issueId, 'Payment Released');
       updated = true;
+      updateIssueStatus(wo.issueId, 'Payment Released');
+      return { 
+        ...wo, 
+        status: 'Payment Released',
+        approvedByUserId: user?.email,
+        approvedByName: user?.name
+      };
     }
+    return wo;
   });
 
   if (updated) {
-    localStorage.setItem(WORK_ORDERS_KEY, JSON.stringify(workOrders));
+    localStorage.setItem(WORK_ORDERS_KEY, JSON.stringify(newWorkOrders));
   }
 };
 

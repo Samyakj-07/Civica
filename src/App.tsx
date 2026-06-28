@@ -8,6 +8,11 @@ import AIVerificationPage from "./pages/AIVerificationPage";
 import DashboardPage from "./pages/DashboardPage";
 import AuditTrailPage from "./pages/AuditTrailPage";
 import ReportsPage from "./pages/ReportsPage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
+import ContractorTaskListPage from "./pages/ContractorTaskListPage";
+import Layout from "./components/Layout";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { Toaster } from 'react-hot-toast';
 
 function AnimatedRoutes() {
@@ -17,13 +22,33 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/create-case" element={<CreateCasePage />} />
-        <Route path="/work-order/:id" element={<WorkOrderReviewPage />} />
-        <Route path="/contractor-task/:id" element={<ContractorTaskPage />} />
-        <Route path="/ai-verification/:id" element={<AIVerificationPage />} />
-        <Route path="/audit-trail/:id" element={<AuditTrailPage />} />
-        <Route path="/reports" element={<ReportsPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        
+        <Route path="/create-case" element={
+          <ProtectedRoute allowedRoles={['citizen', 'admin']}><Layout><CreateCasePage /></Layout></ProtectedRoute>
+        } />
+        <Route path="/work-order/:id" element={
+          <ProtectedRoute allowedRoles={['admin']}><Layout><WorkOrderReviewPage /></Layout></ProtectedRoute>
+        } />
+        <Route path="/contractor-task-list" element={
+          <ProtectedRoute allowedRoles={['contractor']}><Layout><ContractorTaskListPage /></Layout></ProtectedRoute>
+        } />
+        <Route path="/contractor-task/:id" element={
+          <ProtectedRoute allowedRoles={['contractor']}><Layout><ContractorTaskPage /></Layout></ProtectedRoute>
+        } />
+        <Route path="/ai-verification/:id" element={
+          <ProtectedRoute allowedRoles={['admin', 'auditor']}><Layout><AIVerificationPage /></Layout></ProtectedRoute>
+        } />
+        <Route path="/dashboard" element={
+          <ProtectedRoute allowedRoles={['admin', 'auditor']}><Layout><DashboardPage /></Layout></ProtectedRoute>
+        } />
+        <Route path="/audit-trail/:id" element={
+          <ProtectedRoute allowedRoles={['admin', 'auditor']}><Layout><AuditTrailPage /></Layout></ProtectedRoute>
+        } />
+        <Route path="/reports" element={
+          <ProtectedRoute allowedRoles={['admin', 'auditor']}><Layout><ReportsPage /></Layout></ProtectedRoute>
+        } />
       </Routes>
     </AnimatePresence>
   );

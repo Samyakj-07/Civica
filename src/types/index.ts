@@ -1,3 +1,13 @@
+export type Role = 'citizen' | 'admin' | 'contractor' | 'auditor';
+
+export interface User {
+  email: string;
+  name: string;
+  role: Role;
+  contractorName?: string;
+  password?: string;
+}
+
 export type IssueStatus = 
   | 'Reported' 
   | 'AI Reviewed' 
@@ -29,9 +39,11 @@ export interface AIVerificationResult {
   gpsVerified: boolean;
   timestampVerified: boolean;
   evidenceTamperRisk: string;
-  repairQuality: string;
-  recommendation: string;
+  repairQuality: 'Good' | 'Poor';
+  recommendation: 'Release Payment' | 'Hold Payment' | 'Request Rework';
   reason: string;
+  verifiedByUserId?: string;
+  verifiedByName?: string;
 }
 
 export interface Issue {
@@ -47,6 +59,9 @@ export interface Issue {
   beforeImageUrl: string;
   status: IssueStatus;
   aiAnalysis?: AIAnalysis;
+  createdByUserId?: string;
+  createdByName?: string;
+  createdByRole?: string;
 }
 
 export interface Contractor {
@@ -85,4 +100,11 @@ export interface WorkOrder {
   materialNotes?: string;
   completionNotes?: string;
   verificationResult?: AIVerificationResult;
+  assignedByUserId?: string;
+  assignedByName?: string;
+  uploadedByUserId?: string;
+  uploadedByName?: string;
+  uploadedByContractor?: string;
+  approvedByUserId?: string;
+  approvedByName?: string;
 }
