@@ -157,6 +157,15 @@ export const updateWorkOrderStatus = (id: string, status: IssueStatus) => {
   }
 };
 
+export const updateWorkOrder = (id: string, updatedData: Partial<WorkOrder>) => {
+  const workOrders = getWorkOrders();
+  const index = workOrders.findIndex(wo => wo.id === id || wo.workOrderId === id);
+  if (index !== -1) {
+    workOrders[index] = { ...workOrders[index], ...updatedData };
+    localStorage.setItem(WORK_ORDERS_KEY, JSON.stringify(workOrders));
+  }
+};
+
 export const updateIssueStatus = (id: string, status: IssueStatus) => {
   const issues = getIssues();
   const index = issues.findIndex(i => i.id === id);

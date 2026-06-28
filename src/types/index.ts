@@ -66,4 +66,8 @@ export interface WorkOrder {
   assignedContractor?: Contractor;
   status: IssueStatus;
   paymentRule: PaymentRule;
+  checklistState?: boolean[];
+  afterRepairImageUrl?: string;
+  materialNotes?: string;
+  completionNotes?: string;
 }
