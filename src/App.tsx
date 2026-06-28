@@ -6,6 +6,7 @@ import WorkOrderReviewPage from "./pages/WorkOrderReviewPage";
 import ContractorTaskPage from "./pages/ContractorTaskPage";
 import AIVerificationPage from "./pages/AIVerificationPage";
 import DashboardPage from "./pages/DashboardPage";
+import AuditTrailPage from "./pages/AuditTrailPage";
 import { Toaster } from 'react-hot-toast';
 
 function AnimatedRoutes() {
@@ -20,6 +21,7 @@ function AnimatedRoutes() {
         <Route path="/work-order/:id" element={<WorkOrderReviewPage />} />
         <Route path="/contractor-task/:id" element={<ContractorTaskPage />} />
         <Route path="/ai-verification/:id" element={<AIVerificationPage />} />
+        <Route path="/audit-trail/:id" element={<AuditTrailPage />} />
       </Routes>
     </AnimatePresence>
   );

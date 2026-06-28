@@ -136,7 +136,7 @@ export default function DashboardPage() {
       case 'Contractor Assigned': return { label: 'Open Task', path: `/contractor-task/${wo.id}` };
       case 'Repair Uploaded': return { label: 'Verify', path: `/ai-verification/${wo.id}` };
       case 'AI Verified': return { label: 'Approve Payment', path: `/ai-verification/${wo.id}` };
-      case 'Payment Released': return { label: 'View Audit', path: `/ai-verification/${wo.id}` };
+      case 'Payment Released': return { label: 'View Audit', path: `/audit-trail/${wo.id}` };
       default: return { label: 'View', path: `/work-order/${wo.id}` };
     }
   };
