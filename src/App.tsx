@@ -5,6 +5,7 @@ import CreateCasePage from "./pages/CreateCasePage";
 import WorkOrderReviewPage from "./pages/WorkOrderReviewPage";
 import ContractorTaskPage from "./pages/ContractorTaskPage";
 import AIVerificationPage from "./pages/AIVerificationPage";
+import DashboardPage from "./pages/DashboardPage";
 import { Toaster } from 'react-hot-toast';
 
 function AnimatedRoutes() {
@@ -14,6 +15,7 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/create-case" element={<CreateCasePage />} />
         <Route path="/work-order/:id" element={<WorkOrderReviewPage />} />
         <Route path="/contractor-task/:id" element={<ContractorTaskPage />} />

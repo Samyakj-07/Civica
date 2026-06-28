@@ -5,7 +5,9 @@ export type IssueStatus =
   | 'Contractor Assigned' 
   | 'Repair Uploaded' 
   | 'AI Verified' 
-  | 'Payment Released';
+  | 'Rework Required'
+  | 'Payment Released'
+  | 'Case Closed';
 
 export interface AIAnalysis {
   detectedIssue: string;

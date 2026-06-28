@@ -185,6 +185,23 @@ export const updateWorkOrder = (id: string, updatedData: Partial<WorkOrder>) => 
   }
 };
 
+export const approveAllPendingPayments = () => {
+  const workOrders = getWorkOrders();
+  let updated = false;
+  
+  workOrders.forEach(wo => {
+    if (wo.verificationResult?.recommendation === 'Release Payment' && wo.status !== 'Payment Released') {
+      wo.status = 'Payment Released';
+      updateIssueStatus(wo.issueId, 'Payment Released');
+      updated = true;
+    }
+  });
+
+  if (updated) {
+    localStorage.setItem(WORK_ORDERS_KEY, JSON.stringify(workOrders));
+  }
+};
+
 export const updateIssueStatus = (id: string, status: IssueStatus) => {
   const issues = getIssues();
   const index = issues.findIndex(i => i.id === id);

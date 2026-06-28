@@ -12,7 +12,8 @@ import {
   ArrowRight,
   Zap,
   Clock,
-  ThumbsUp
+  ThumbsUp,
+  Play
 } from "lucide-react";
 
 const fadeInUp = {
@@ -74,6 +75,7 @@ function Header() {
           Civica
         </div>
         <nav className="hidden md:flex gap-8 text-sm font-semibold text-muted">
+          <Link to="/dashboard" className="hover:text-ink transition-colors">Dashboard</Link>
           <a href="#platform" className="hover:text-ink transition-colors">Platform</a>
           <a href="#solutions" className="hover:text-ink transition-colors">Solutions</a>
           <a href="#metrics" className="hover:text-ink transition-colors">Impact</a>
@@ -84,7 +86,7 @@ function Header() {
             to="/create-case"
             className="inline-block px-5 py-2.5 rounded-full bg-violet-deep text-white font-bold text-sm hover:bg-violet transition-colors shadow-lg shadow-violet/20 hover:scale-105 active:scale-95 transition-transform"
           >
-            Book Demo
+            Get Started
           </Link>
         </div>
       </div>
@@ -133,6 +135,12 @@ function HeroSection() {
             className="w-full sm:w-auto px-10 py-4 rounded-full bg-ink text-white font-bold text-lg hover:bg-slate-800 transition-colors shadow-xl shadow-black/15 flex items-center justify-center gap-2 group hover:scale-105 active:scale-95 transition-transform"
           >
             Start Free Pilot <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
+          <Link 
+            to="/dashboard"
+            className="w-full sm:w-auto px-10 py-4 rounded-full bg-white text-ink font-bold text-lg border border-slate-200 hover:bg-slate-50 transition-colors shadow-sm flex items-center justify-center gap-2"
+          >
+            <Play size={18} className="text-violet" /> View Dashboard
           </Link>
         </motion.div>
       </motion.div>

@@ -125,6 +125,8 @@ export default function AIVerificationPage() {
           </div>
           <div className="h-4 w-px bg-slate-300 mx-2" />
           <span className="font-semibold text-slate-500 text-sm">AI Verification</span>
+          <div className="h-4 w-px bg-slate-300 mx-2" />
+          <Link to="/dashboard" className="font-semibold text-slate-400 text-sm hover:text-ink transition-colors">Dashboard</Link>
         </div>
         <div className="flex items-center gap-2">
           {isPaymentReleased ? (
