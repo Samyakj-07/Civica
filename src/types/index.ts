@@ -20,6 +20,18 @@ export interface AIAnalysis {
   recommendedAction: string;
 }
 
+export interface AIVerificationResult {
+  repairConfidence: number;
+  sameLocationMatch: number;
+  issueResolved: boolean;
+  gpsVerified: boolean;
+  timestampVerified: boolean;
+  evidenceTamperRisk: string;
+  repairQuality: string;
+  recommendation: string;
+  reason: string;
+}
+
 export interface Issue {
   id: string;
   title: string;
@@ -70,4 +82,5 @@ export interface WorkOrder {
   afterRepairImageUrl?: string;
   materialNotes?: string;
   completionNotes?: string;
+  verificationResult?: AIVerificationResult;
 }

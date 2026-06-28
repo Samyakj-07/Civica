@@ -1,4 +1,4 @@
-import { Issue, AIAnalysis, WorkOrder, Contractor, IssueStatus } from '../types';
+import { Issue, IssueStatus, WorkOrder, Contractor, AIAnalysis, AIVerificationResult } from '../types';
 
 // Mock Data
 export const MOCK_CONTRACTORS: Contractor[] = [
@@ -103,7 +103,26 @@ export const getIssues = (): Issue[] => {
 };
 
 export const getIssueById = (id: string): Issue | undefined => {
-  return getIssues().find(i => i.id === id);
+  const issues = getIssues();
+  return issues.find(i => i.id === id);
+};
+
+export const verifyRepair = async (workOrder: WorkOrder): Promise<AIVerificationResult> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        repairConfidence: 91,
+        sameLocationMatch: 94,
+        issueResolved: true,
+        gpsVerified: true,
+        timestampVerified: true,
+        evidenceTamperRisk: 'Low',
+        repairQuality: 'Good',
+        recommendation: 'Release Payment',
+        reason: 'All verification checks passed. Repair evidence matches the original issue and confidence is above the payment threshold.'
+      });
+    }, 3000);
+  });
 };
 
 export const createWorkOrderFromIssue = (issue: Issue, aiAnalysis: AIAnalysis): WorkOrder => {
