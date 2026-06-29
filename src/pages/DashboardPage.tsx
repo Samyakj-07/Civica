@@ -168,7 +168,7 @@ export default function DashboardPage() {
             placeholder="Search issues, work orders, contractors..." 
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-violet/50 focus:bg-white transition-all"
+            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue/50 focus:bg-white transition-all"
           />
         </div>
 
@@ -176,7 +176,7 @@ export default function DashboardPage() {
           <Link to="/reports" className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-full text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">
             <Download size={16} /> Export Report
           </Link>
-          <Link to="/create-case" className="flex items-center gap-2 px-4 py-2 bg-violet-deep text-white rounded-full text-sm font-bold shadow-md shadow-violet/20 hover:bg-violet transition-colors">
+          <Link to="/create-case" className="flex items-center gap-2 px-4 py-2 bg-blue-deep text-white rounded-full text-sm font-bold shadow-md shadow-blue/20 hover:bg-blue transition-colors">
             <Plus size={16} /> Create Civic Case
           </Link>
         </div>
@@ -204,7 +204,7 @@ export default function DashboardPage() {
           
           <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
             <div className="flex justify-between items-start mb-4">
-              <div className="w-10 h-10 rounded-full bg-violet/10 flex items-center justify-center text-violet"><ShieldCheck size={20}/></div>
+              <div className="w-10 h-10 rounded-full bg-blue/10 flex items-center justify-center text-blue"><ShieldCheck size={20}/></div>
               <span className="text-xs font-bold text-mint bg-mint/10 px-2 py-0.5 rounded-full flex items-center gap-1"><TrendingUp size={10}/> 8%</span>
             </div>
             <div>
@@ -260,7 +260,7 @@ export default function DashboardPage() {
                     <button 
                       key={f}
                       onClick={() => setFilter(f)}
-                      className={`text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors ${filter === f ? 'bg-violet text-white' : 'bg-white border border-slate-200 text-slate-500 hover:bg-slate-50'}`}
+                      className={`text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors ${filter === f ? 'bg-blue text-white' : 'bg-white border border-slate-200 text-slate-500 hover:bg-slate-50'}`}
                     >
                       {f}
                     </button>
@@ -296,7 +296,7 @@ export default function DashboardPage() {
                         return (
                           <tr key={wo.id} className="hover:bg-slate-50/50 transition-colors group">
                             <td className="px-6 py-4">
-                              <div className="text-xs font-bold text-violet mb-0.5">{wo.workOrderId}</div>
+                              <div className="text-xs font-bold text-blue mb-0.5">{wo.workOrderId}</div>
                               <div className="text-sm font-semibold text-ink truncate max-w-[200px]">{parentIssue?.title || 'Unknown Issue'}</div>
                             </td>
                             <td className="px-6 py-4">
@@ -326,7 +326,7 @@ export default function DashboardPage() {
                               )}
                             </td>
                             <td className="px-6 py-4">
-                              <button onClick={() => navigate(action.path)} className="text-xs font-bold text-violet bg-violet/5 hover:bg-violet/10 px-3 py-1.5 rounded-full transition-colors flex items-center gap-1 whitespace-nowrap opacity-0 group-hover:opacity-100 focus:opacity-100">
+                              <button onClick={() => navigate(action.path)} className="text-xs font-bold text-blue bg-blue/5 hover:bg-blue/10 px-3 py-1.5 rounded-full transition-colors flex items-center gap-1 whitespace-nowrap opacity-0 group-hover:opacity-100 focus:opacity-100">
                                 {action.label} <ArrowRight size={12} />
                               </button>
                             </td>
@@ -379,11 +379,11 @@ export default function DashboardPage() {
           <div className="lg:col-span-4 space-y-6">
             
             {/* SECTION 4: AI Assurance Panel */}
-            <div className="bg-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-lg shadow-violet/10">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-violet/20 rounded-full blur-3xl mix-blend-screen pointer-events-none" />
+            <div className="bg-slate-900 rounded-2xl p-6 relative overflow-hidden shadow-lg shadow-blue/10">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-blue/20 rounded-full blur-3xl mix-blend-screen pointer-events-none" />
               
               <div className="flex items-center gap-2 mb-6 relative z-10">
-                <Activity size={18} className="text-violet" />
+                <Activity size={18} className="text-blue" />
                 <h2 className="text-sm font-bold uppercase tracking-wide text-slate-300">AI Assurance Overview</h2>
               </div>
               
@@ -440,10 +440,10 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-violet/10 flex items-center justify-center text-violet"><Activity size={14}/></div>
+                    <div className="w-8 h-8 rounded-full bg-blue/10 flex items-center justify-center text-blue"><Activity size={14}/></div>
                     <span className="text-sm font-bold text-slate-600">Pending Approval</span>
                   </div>
-                  <span className="font-extrabold text-violet">
+                  <span className="font-extrabold text-blue">
                     ₹{workOrders.filter(w => w.verificationResult?.recommendation === 'Release Payment' && w.status !== 'Payment Released').reduce((s, w) => s + parseInt(w.estimatedCost.replace(/\D/g, '') || '0'), 0).toLocaleString()}
                   </span>
                 </div>
@@ -452,7 +452,7 @@ export default function DashboardPage() {
               <button 
                 onClick={handleApprovePayments}
                 disabled={!workOrders.some(w => w.verificationResult?.recommendation === 'Release Payment' && w.status !== 'Payment Released')}
-                className="w-full bg-violet-deep text-white font-bold py-3 px-4 rounded-xl shadow-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed hover:bg-violet flex justify-center items-center gap-2"
+                className="w-full bg-blue-deep text-white font-bold py-3 px-4 rounded-xl shadow-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue flex justify-center items-center gap-2"
               >
                 Approve Pending Payments
               </button>
@@ -472,7 +472,7 @@ export default function DashboardPage() {
                 </div>
                 
                 <div className="relative h-8 bg-slate-50 rounded overflow-hidden flex items-center border border-slate-100">
-                  <div className="absolute top-0 left-0 bottom-0 bg-violet/20" style={{ width: `${Math.max((funnel.reviewed / funnel.reported) * 100 || 0, 5)}%` }}></div>
+                  <div className="absolute top-0 left-0 bottom-0 bg-blue/20" style={{ width: `${Math.max((funnel.reviewed / funnel.reported) * 100 || 0, 5)}%` }}></div>
                   <div className="relative z-10 flex justify-between w-full px-3 text-xs font-bold text-slate-600">
                     <span>2. AI Reviewed</span>
                     <span>{funnel.reviewed}</span>
@@ -480,7 +480,7 @@ export default function DashboardPage() {
                 </div>
 
                 <div className="relative h-8 bg-slate-50 rounded overflow-hidden flex items-center border border-slate-100">
-                  <div className="absolute top-0 left-0 bottom-0 bg-violet/40" style={{ width: `${Math.max((funnel.assigned / funnel.reported) * 100 || 0, 5)}%` }}></div>
+                  <div className="absolute top-0 left-0 bottom-0 bg-blue/40" style={{ width: `${Math.max((funnel.assigned / funnel.reported) * 100 || 0, 5)}%` }}></div>
                   <div className="relative z-10 flex justify-between w-full px-3 text-xs font-bold text-slate-700">
                     <span>3. Assigned</span>
                     <span>{funnel.assigned}</span>
@@ -488,7 +488,7 @@ export default function DashboardPage() {
                 </div>
 
                 <div className="relative h-8 bg-slate-50 rounded overflow-hidden flex items-center border border-slate-100">
-                  <div className="absolute top-0 left-0 bottom-0 bg-violet/60" style={{ width: `${Math.max((funnel.verified / funnel.reported) * 100 || 0, 5)}%` }}></div>
+                  <div className="absolute top-0 left-0 bottom-0 bg-blue/60" style={{ width: `${Math.max((funnel.verified / funnel.reported) * 100 || 0, 5)}%` }}></div>
                   <div className="relative z-10 flex justify-between w-full px-3 text-xs font-bold text-white drop-shadow-sm">
                     <span>4. AI Verified</span>
                     <span>{funnel.verified}</span>
@@ -546,7 +546,7 @@ export default function DashboardPage() {
           <p className="text-slate-500 font-medium max-w-md mx-auto mb-8">
             Create your first verified civic case to start the assurance workflow. Track AI verifications and manage payments right here.
           </p>
-          <Link to="/create-case" className="px-8 py-3 bg-violet-deep text-white rounded-full font-bold shadow-lg shadow-violet/20 hover:bg-violet transition-colors flex items-center gap-2">
+          <Link to="/create-case" className="px-8 py-3 bg-blue-deep text-white rounded-full font-bold shadow-lg shadow-blue/20 hover:bg-blue transition-colors flex items-center gap-2">
             <Plus size={20} /> Create Civic Case
           </Link>
         </div>

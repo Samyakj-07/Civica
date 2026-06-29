@@ -42,7 +42,7 @@ export default function LandingPage() {
     >
       
       {/* Animated Background Blobs */}
-      <div className="blob-bg w-[600px] h-[600px] rounded-full bg-violet top-[-10%] left-[-10%] mix-blend-multiply" />
+      <div className="blob-bg w-[600px] h-[600px] rounded-full bg-blue top-[-10%] left-[-10%] mix-blend-multiply" />
       <div className="blob-bg w-[500px] h-[500px] rounded-full bg-mint top-[20%] right-[-5%] mix-blend-multiply" style={{ animationDelay: '2s' }} />
       <div className="blob-bg w-[700px] h-[700px] rounded-full bg-amber bottom-[-20%] left-[20%] mix-blend-multiply" style={{ animationDelay: '4s' }} />
 
@@ -84,7 +84,7 @@ function Header() {
           <Link to="/login" className="hidden text-sm font-bold text-muted hover:text-ink transition-colors md:block">Log In</Link>
           <Link
             to="/signup"
-            className="inline-block px-5 py-2.5 rounded-full bg-violet-deep text-white font-bold text-sm hover:bg-violet transition-colors shadow-lg shadow-violet/20 hover:scale-105 active:scale-95 transition-transform"
+            className="inline-block px-5 py-2.5 rounded-full bg-blue-deep text-white font-bold text-sm hover:bg-blue transition-colors shadow-lg shadow-blue/20 hover:scale-105 active:scale-95 transition-transform"
           >
             Get Started
           </Link>
@@ -105,8 +105,8 @@ function HeroSection() {
         viewport={{ once: true, margin: "-100px" }}
       >
         <motion.div variants={fadeInUp}>
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-violet/10 bg-white/60 backdrop-blur-md text-violet-deep text-sm font-bold mb-6 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-violet animate-pulse" />
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue/10 bg-white/60 backdrop-blur-md text-blue-deep text-sm font-bold mb-6 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-blue animate-pulse" />
             The AI Assurance Layer for Civic Operations
           </span>
         </motion.div>
@@ -140,7 +140,7 @@ function HeroSection() {
             to="/login"
             className="w-full sm:w-auto px-10 py-4 rounded-full bg-white text-ink font-bold text-lg border border-slate-200 hover:bg-slate-50 transition-colors shadow-sm flex items-center justify-center gap-2"
           >
-            <Play size={18} className="text-violet" /> View Dashboard
+            <Play size={18} className="text-blue" /> View Dashboard
           </Link>
         </motion.div>
       </motion.div>
@@ -180,8 +180,8 @@ function HeroSection() {
           <div className="text-xs text-muted mt-2">AI Confidence: 94%</div>
         </div>
 
-        <div className="absolute left-1/2 -translate-x-1/2 top-0 w-80 glass-panel rounded-2xl p-6 shadow-2xl z-10 hover:-translate-y-4 transition-all duration-500 cursor-default border border-violet/10">
-          <div className="text-xs font-bold text-violet uppercase tracking-wider mb-2">Assurance Engine</div>
+        <div className="absolute left-1/2 -translate-x-1/2 top-0 w-80 glass-panel rounded-2xl p-6 shadow-2xl z-10 hover:-translate-y-4 transition-all duration-500 cursor-default border border-blue/10">
+          <div className="text-xs font-bold text-blue uppercase tracking-wider mb-2">Assurance Engine</div>
           <div className="text-2xl font-bold mb-1">Work Order #8892</div>
           <div className="text-sm text-muted mb-4">Pothole Repair • Ward 12</div>
           <div className="flex gap-2">
@@ -206,7 +206,7 @@ function HeroSection() {
 function MetricsSection() {
   const metrics = [
     { value: "16%", label: "Ghost Repairs Caught", icon: Zap, color: "text-amber" },
-    { value: "38%", label: "Faster Resolution", icon: Clock, color: "text-violet" },
+    { value: "38%", label: "Faster Resolution", icon: Clock, color: "text-blue" },
     { value: "91%", label: "AI Verification Accuracy", icon: ThumbsUp, color: "text-mint" }
   ];
 
@@ -291,10 +291,10 @@ function ProblemSolutionSection() {
             variants={fadeInUp}
             className="bento-card p-10 bg-slate-900 text-white relative overflow-hidden"
           >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-violet/20 rounded-full blur-3xl" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue/20 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-mint/10 rounded-full blur-3xl" />
             
-            <div className="w-14 h-14 rounded-2xl bg-violet flex items-center justify-center mb-8 shadow-lg shadow-violet/30 border border-violet-deep">
+            <div className="w-14 h-14 rounded-2xl bg-blue flex items-center justify-center mb-8 shadow-lg shadow-blue/30 border border-blue-deep">
               <ShieldCheck size={28} />
             </div>
             <h3 className="text-2xl font-extrabold mb-6">The Civica Assurance Era</h3>
@@ -344,8 +344,8 @@ function FeatureBentoSection() {
             whileHover={{ y: -8 }}
             className="bento-card bg-white p-8 md:col-span-2 relative overflow-hidden group"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-violet/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-violet mb-6">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-blue mb-6">
               <Layers size={28} />
             </div>
             <h3 className="text-2xl font-extrabold mb-4 text-ink">Issue DNA</h3>
@@ -429,7 +429,7 @@ function AudienceSection() {
           <div className="hidden md:block absolute top-12 left-[15%] right-[15%] h-px bg-slate-200 z-0" />
 
           <motion.div variants={fadeInUp} className="relative z-10">
-            <div className="w-24 h-24 mx-auto bg-white border border-slate-100 shadow-xl rounded-3xl flex items-center justify-center mb-8 text-violet">
+            <div className="w-24 h-24 mx-auto bg-white border border-slate-100 shadow-xl rounded-3xl flex items-center justify-center mb-8 text-blue">
               <Building2 size={40} />
             </div>
             <h3 className="text-2xl font-extrabold mb-4">Smart Campuses</h3>
@@ -462,7 +462,7 @@ function Footer() {
     <footer className="bg-white border-t border-slate-100 py-12">
       <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex items-center gap-2 font-display font-extrabold text-xl text-ink">
-          <ShieldCheck size={20} className="text-violet" />
+          <ShieldCheck size={20} className="text-blue" />
           Civica
         </div>
         <p className="text-sm text-muted font-bold">© {new Date().getFullYear()} Civica Assurance OS. All rights reserved.</p>

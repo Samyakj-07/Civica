@@ -65,7 +65,7 @@ export default function ContractorTaskListPage() {
               placeholder="Search tasks..." 
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-full text-sm focus:outline-none focus:border-violet focus:ring-1 focus:ring-violet"
+              className="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-full text-sm focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue"
             />
           </div>
           <button 
@@ -86,7 +86,7 @@ export default function ContractorTaskListPage() {
           <p className="text-slate-500 max-w-sm mb-6">
             When a municipal admin assigns a verified work order to {user?.contractorName}, it will appear here.
           </p>
-          <button onClick={loadTasks} className="px-6 py-2.5 bg-violet text-white rounded-full font-bold shadow-md hover:bg-violet-deep transition-colors flex items-center gap-2">
+          <button onClick={loadTasks} className="px-6 py-2.5 bg-blue text-white rounded-full font-bold shadow-md hover:bg-blue-deep transition-colors flex items-center gap-2">
             <RefreshCcw size={16} /> Refresh Tasks
           </button>
         </div>
@@ -146,7 +146,7 @@ export default function ContractorTaskListPage() {
                     className={`w-full py-2.5 rounded-lg font-bold flex items-center justify-center gap-2 transition-colors ${
                       isCompleted ? 'bg-slate-50 text-slate-600 hover:bg-slate-100' : 
                       isRework ? 'bg-coral text-white hover:bg-coral-dark shadow-md shadow-coral/20' : 
-                      'bg-violet-deep text-white hover:bg-violet shadow-md shadow-violet/20'
+                      'bg-blue-deep text-white hover:bg-blue shadow-md shadow-blue/20'
                     }`}
                   >
                     {isCompleted ? 'View Proof' : isRework ? 'Fix Issue' : 'Open Task'} <ArrowRight size={16} />

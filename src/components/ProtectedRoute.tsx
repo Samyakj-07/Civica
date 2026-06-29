@@ -41,7 +41,7 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
         <div className="flex gap-4">
           <button 
             onClick={() => navigate('/')} 
-            className="flex items-center gap-2 px-6 py-3 bg-violet-deep text-white rounded-full font-bold shadow-lg shadow-violet/20 hover:bg-violet transition-colors"
+            className="flex items-center gap-2 px-6 py-3 bg-blue-deep text-white rounded-full font-bold shadow-lg shadow-blue/20 hover:bg-blue transition-colors"
           >
             Go to my workspace <ArrowRight size={16} />
           </button>

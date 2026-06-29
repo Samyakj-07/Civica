@@ -72,8 +72,8 @@ export default function WorkOrderReviewPage() {
         </div>
         <div className="flex items-center gap-3">
           <button className="text-sm font-bold text-muted hover:text-ink px-4 py-2">Cancel</button>
-          <button className="text-sm font-bold text-ink hover:text-violet px-4 py-2 border border-slate-200 rounded-full hover:bg-slate-50 transition-colors">Save Draft</button>
-          <button onClick={handleAssignContractor} className="px-5 py-2 rounded-full bg-violet-deep text-white font-bold text-sm shadow-md shadow-violet/20 hover:bg-violet transition-colors">
+          <button className="text-sm font-bold text-ink hover:text-blue px-4 py-2 border border-slate-200 rounded-full hover:bg-slate-50 transition-colors">Save Draft</button>
+          <button onClick={handleAssignContractor} className="px-5 py-2 rounded-full bg-blue-deep text-white font-bold text-sm shadow-md shadow-blue/20 hover:bg-blue transition-colors">
             Assign Verified Work Order
           </button>
         </div>
@@ -153,7 +153,7 @@ export default function WorkOrderReviewPage() {
                 </div>
                 <div className="text-right">
                   <div className="text-sm font-bold text-slate-400 mb-1">Priority Score</div>
-                  <div className="text-2xl font-display font-extrabold text-violet">{workOrder.priorityScore}<span className="text-slate-300 text-lg">/100</span></div>
+                  <div className="text-2xl font-display font-extrabold text-blue">{workOrder.priorityScore}<span className="text-slate-300 text-lg">/100</span></div>
                 </div>
               </div>
 
@@ -163,7 +163,7 @@ export default function WorkOrderReviewPage() {
                   <div className="relative">
                     <select 
                       defaultValue={workOrder.slaDeadline}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet appearance-none font-bold text-sm bg-slate-50 cursor-pointer"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue/50 focus:border-blue appearance-none font-bold text-sm bg-slate-50 cursor-pointer"
                     >
                       <option>{workOrder.slaDeadline}</option>
                       <option>48 Hours</option>
@@ -177,7 +177,7 @@ export default function WorkOrderReviewPage() {
                   <div className="relative">
                     <select 
                       defaultValue={workOrder.department}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet appearance-none font-bold text-sm bg-slate-50 cursor-pointer"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue/50 focus:border-blue appearance-none font-bold text-sm bg-slate-50 cursor-pointer"
                     >
                       <option>{workOrder.department}</option>
                       <option>Roads</option>
@@ -188,11 +188,11 @@ export default function WorkOrderReviewPage() {
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-500 mb-2">Required Action</label>
-                  <input type="text" defaultValue={workOrder.requiredAction} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet text-sm font-bold bg-slate-50" />
+                  <input type="text" defaultValue={workOrder.requiredAction} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue/50 focus:border-blue text-sm font-bold bg-slate-50" />
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-slate-500 mb-2">Estimated Cost</label>
-                  <input type="text" defaultValue={workOrder.estimatedCost} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet text-sm font-bold bg-slate-50" />
+                  <input type="text" defaultValue={workOrder.estimatedCost} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue/50 focus:border-blue text-sm font-bold bg-slate-50" />
                 </div>
               </div>
 
@@ -204,7 +204,7 @@ export default function WorkOrderReviewPage() {
                 <textarea 
                   rows={3} 
                   defaultValue={workOrder.repairInstructions}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet text-xs leading-relaxed bg-slate-50 resize-none font-medium" 
+                  className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue/50 focus:border-blue text-xs leading-relaxed bg-slate-50 resize-none font-medium" 
                 />
               </div>
             </div>
@@ -214,14 +214,14 @@ export default function WorkOrderReviewPage() {
           <div className="lg:col-span-4 space-y-4">
             
             {/* Contractor Recommendation */}
-            <div className="bento-card bg-white p-4 border-2 border-violet/20 relative overflow-hidden">
-              <div className="absolute top-0 right-0 bg-violet text-white text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded-bl-lg">Top Match</div>
+            <div className="bento-card bg-white p-4 border-2 border-blue/20 relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-blue text-white text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded-bl-lg">Top Match</div>
               <h2 className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">Suggested Contractor</h2>
               
               {topContractor && (
                 <>
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-violet-deep to-violet text-white flex items-center justify-center font-bold text-lg shadow-md">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-deep to-blue text-white flex items-center justify-center font-bold text-lg shadow-md">
                       {topContractor.name.charAt(0)}
                     </div>
                     <div>
@@ -250,7 +250,7 @@ export default function WorkOrderReviewPage() {
                   </div>
 
                   <div className="flex gap-2">
-                    <button onClick={handleAssignContractor} className="flex-1 py-1.5 rounded-lg bg-violet-deep text-white font-bold text-xs hover:bg-violet transition-colors">Assign</button>
+                    <button onClick={handleAssignContractor} className="flex-1 py-1.5 rounded-lg bg-blue-deep text-white font-bold text-xs hover:bg-blue transition-colors">Assign</button>
                     <button className="px-3 py-1.5 rounded-lg border border-slate-200 font-bold text-xs text-slate-500 hover:text-ink transition-colors">Compare</button>
                   </div>
                 </>
@@ -322,7 +322,7 @@ export default function WorkOrderReviewPage() {
               <div className="w-6 h-px bg-mint mx-2 shrink-0" />
               <span className="flex items-center gap-1.5 text-mint whitespace-nowrap"><CheckSquare size={14}/> AI Reviewed</span>
               <div className="w-6 h-px bg-mint mx-2 shrink-0" />
-              <span className="flex items-center gap-1.5 text-violet whitespace-nowrap bg-violet/10 px-2 py-1 rounded-full"><span className="w-1.5 h-1.5 rounded-full bg-violet animate-pulse" /> Work Order Created</span>
+              <span className="flex items-center gap-1.5 text-blue whitespace-nowrap bg-blue/10 px-2 py-1 rounded-full"><span className="w-1.5 h-1.5 rounded-full bg-blue animate-pulse" /> Work Order Created</span>
               <div className="w-6 h-px bg-slate-200 mx-2 shrink-0" />
               <span className="text-slate-400 whitespace-nowrap">Contractor Assigned</span>
               <div className="w-6 h-px bg-slate-200 mx-2 shrink-0" />
@@ -335,7 +335,7 @@ export default function WorkOrderReviewPage() {
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <button className="px-3 py-1.5 rounded-full border border-slate-200 font-bold text-xs text-slate-600 hover:bg-slate-50 transition-colors hidden sm:block">Edit</button>
-            <button onClick={handleAssignContractor} className="px-4 py-1.5 rounded-full bg-violet-deep text-white font-bold text-xs shadow-md shadow-violet/20 hover:bg-violet transition-colors">
+            <button onClick={handleAssignContractor} className="px-4 py-1.5 rounded-full bg-blue-deep text-white font-bold text-xs shadow-md shadow-blue/20 hover:bg-blue transition-colors">
               Assign Verified Work Order
             </button>
           </div>

@@ -42,7 +42,7 @@ export default function SignupPage() {
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100">
         
         <div className="flex flex-col items-center mb-8">
-          <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-violet-deep text-white shadow-md mb-4">
+          <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-deep text-white shadow-md mb-4">
             <ShieldCheck size={28} />
           </div>
           <h2 className="text-2xl font-display font-extrabold text-ink">Create an Account</h2>
@@ -57,7 +57,7 @@ export default function SignupPage() {
               required
               value={name}
               onChange={e => setName(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-violet focus:ring-2 focus:ring-violet/20"
+              className="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
               placeholder="Jane Doe"
             />
           </div>
@@ -68,7 +68,7 @@ export default function SignupPage() {
               required
               value={email}
               onChange={e => setEmail(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-violet focus:ring-2 focus:ring-violet/20"
+              className="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
               placeholder="name@example.com"
             />
           </div>
@@ -79,7 +79,7 @@ export default function SignupPage() {
               required
               value={password}
               onChange={e => setPassword(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-violet focus:ring-2 focus:ring-violet/20"
+              className="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
               placeholder="••••••••"
             />
           </div>
@@ -88,7 +88,7 @@ export default function SignupPage() {
             <select 
               value={role}
               onChange={(e) => setRole(e.target.value as Role)}
-              className="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-violet focus:ring-2 focus:ring-violet/20 bg-white"
+              className="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 bg-white"
             >
               <option value="citizen">Citizen (Report Issues)</option>
               <option value="admin">Admin (Manage Orders)</option>
@@ -105,7 +105,7 @@ export default function SignupPage() {
                 required
                 value={contractorName}
                 onChange={e => setContractorName(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-violet focus:ring-2 focus:ring-violet/20"
+                className="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
                 placeholder="AquaFix Services"
               />
             </motion.div>
@@ -114,14 +114,14 @@ export default function SignupPage() {
           <button 
             type="submit" 
             disabled={isLoading}
-            className="w-full py-3 mt-6 bg-violet-deep text-white rounded-lg font-bold shadow-md shadow-violet/20 hover:bg-violet transition-colors flex items-center justify-center gap-2"
+            className="w-full py-3 mt-6 bg-blue-deep text-white rounded-lg font-bold shadow-md shadow-blue/20 hover:bg-blue transition-colors flex items-center justify-center gap-2"
           >
             {isLoading ? <Loader2 size={20} className="animate-spin" /> : "Sign Up"}
           </button>
         </form>
 
         <p className="mt-6 text-center text-sm text-slate-500 font-medium">
-          Already have an account? <Link to="/login" className="text-violet font-bold hover:underline">Log in</Link>
+          Already have an account? <Link to="/login" className="text-blue font-bold hover:underline">Log in</Link>
         </p>
 
       </div>

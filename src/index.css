@@ -40,8 +40,8 @@ body::before {
   --color-ink: #0F172A;
   --color-muted: #475569;
   --color-paper: #FFFFFF;
-  --color-violet: #6366F1;
-  --color-violet-deep: #4F46E5;
+  --color-blue: #3B82F6;
+  --color-blue-deep: #2563EB;
   --color-amber: #F59E0B;
   --color-mint: #10B981;
   --color-coral: #EF4444;
@@ -68,7 +68,7 @@ body::before {
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, #4F46E5 0%, #10B981 100%);
+    background: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

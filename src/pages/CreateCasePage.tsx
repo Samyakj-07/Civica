@@ -122,7 +122,7 @@ export default function CreateCasePage() {
             onClick={handleCreateWorkOrder}
             className={`px-5 py-2 rounded-full font-bold text-sm transition-all ${
               scanComplete 
-                ? 'bg-violet-deep text-white shadow-md shadow-violet/20 hover:bg-violet' 
+                ? 'bg-blue-deep text-white shadow-md shadow-blue/20 hover:bg-blue' 
                 : 'bg-slate-100 text-slate-400 cursor-not-allowed shadow-none'
             }`}
           >
@@ -138,7 +138,7 @@ export default function CreateCasePage() {
           
           {/* Progress Stepper */}
           <div className="flex items-center gap-3 text-sm font-bold overflow-x-auto pb-2">
-            <span className="flex items-center gap-2 text-violet whitespace-nowrap"><span className="w-6 h-6 rounded-full bg-violet text-white flex items-center justify-center text-xs">1</span> Intake</span>
+            <span className="flex items-center gap-2 text-blue whitespace-nowrap"><span className="w-6 h-6 rounded-full bg-blue text-white flex items-center justify-center text-xs">1</span> Intake</span>
             <span className="w-12 h-px bg-slate-300 shrink-0" />
             <span className="flex items-center gap-2 text-slate-400 whitespace-nowrap"><span className="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center text-xs">2</span> AI Analysis</span>
             <span className="w-12 h-px bg-slate-300 shrink-0" />
@@ -154,7 +154,7 @@ export default function CreateCasePage() {
           <div className="lg:col-span-4 space-y-4">
             <div className="bento-card bg-white p-5">
               <h2 className="text-base font-bold mb-4 flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-violet/10 text-violet flex items-center justify-center text-xs">1</span>
+                <span className="w-5 h-5 rounded-full bg-blue/10 text-blue flex items-center justify-center text-xs">1</span>
                 Issue Details
               </h2>
               
@@ -166,7 +166,7 @@ export default function CreateCasePage() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="e.g., Water leakage near Block B" 
-                    className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet transition-all bg-slate-50 text-sm" 
+                    className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue/50 focus:border-blue transition-all bg-slate-50 text-sm" 
                   />
                 </div>
                 
@@ -175,7 +175,7 @@ export default function CreateCasePage() {
                   <select 
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet transition-all bg-slate-50 text-slate-700 text-sm"
+                    className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue/50 focus:border-blue transition-all bg-slate-50 text-slate-700 text-sm"
                   >
                     <option value="">Select Category...</option>
                     <option value="Water & Sanitation">Water & Sanitation</option>
@@ -192,7 +192,7 @@ export default function CreateCasePage() {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Add any specific details..." 
-                    className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet transition-all bg-slate-50 resize-none text-sm" 
+                    className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue/50 focus:border-blue transition-all bg-slate-50 resize-none text-sm" 
                   />
                 </div>
 
@@ -205,7 +205,7 @@ export default function CreateCasePage() {
                         onClick={() => setUrgency(level)}
                         className={`flex-1 py-2 rounded-xl border text-sm font-bold transition-colors ${
                           urgency === level 
-                            ? 'border-violet bg-violet/5 text-violet' 
+                            ? 'border-blue bg-blue/5 text-blue' 
                             : 'border-slate-200 text-muted hover:border-slate-300 hover:bg-slate-50'
                         }`}
                       >
@@ -222,14 +222,14 @@ export default function CreateCasePage() {
           <div className="lg:col-span-4 space-y-4">
             <div className="bento-card bg-white p-5">
               <h2 className="text-base font-bold mb-4 flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-violet/10 text-violet flex items-center justify-center text-xs">2</span>
+                <span className="w-5 h-5 rounded-full bg-blue/10 text-blue flex items-center justify-center text-xs">2</span>
                 Evidence
               </h2>
               
               <div 
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleDrop}
-                className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all duration-300 ${file ? 'border-mint bg-mint/5' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-violet/30'}`}
+                className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all duration-300 ${file ? 'border-mint bg-mint/5' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-blue/30'}`}
               >
                 <input 
                   type="file" 
@@ -247,7 +247,7 @@ export default function CreateCasePage() {
                       exit={{ opacity: 0 }}
                       className="flex flex-col items-center pointer-events-none"
                     >
-                      <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-violet mb-3">
+                      <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-blue mb-3">
                         <UploadCloud size={20} />
                       </div>
                       <p className="font-bold text-sm text-ink mb-1">Upload Evidence</p>
@@ -273,8 +273,8 @@ export default function CreateCasePage() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="flex flex-col items-center pointer-events-none"
                     >
-                      <Loader2 size={32} className="text-violet animate-spin mb-4" />
-                      <p className="font-bold text-violet mb-1">AI Scanning...</p>
+                      <Loader2 size={32} className="text-blue animate-spin mb-4" />
+                      <p className="font-bold text-blue mb-1">AI Scanning...</p>
                       <p className="text-sm text-muted">Analyzing image metadata and visual damage.</p>
                     </motion.div>
                   )}
@@ -307,7 +307,7 @@ export default function CreateCasePage() {
                 <h2 className="text-base font-bold flex items-center gap-2">
                   <MapPin size={16} className="text-muted" /> Location
                 </h2>
-                {scanComplete && <span className="text-[10px] font-bold px-2 py-0.5 bg-violet/10 text-violet rounded">Auto-detected</span>}
+                {scanComplete && <span className="text-[10px] font-bold px-2 py-0.5 bg-blue/10 text-blue rounded">Auto-detected</span>}
               </div>
               <div className="w-full h-28 bg-slate-100 rounded-xl relative overflow-hidden flex items-center justify-center group mb-3">
                 {/* Fake map background using CSS pattern */}
@@ -335,7 +335,7 @@ export default function CreateCasePage() {
                 >
                   <div className="flex justify-between text-xs">
                     <span className="text-muted">Asset Linked</span>
-                    <span className="font-bold text-violet">Pipeline Zone P-12</span>
+                    <span className="font-bold text-blue">Pipeline Zone P-12</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted">Nearby Reports</span>
@@ -353,12 +353,12 @@ export default function CreateCasePage() {
           {/* Right Column: AI DNA Preview */}
           <div className="lg:col-span-4">
             <div className="bento-card bg-slate-900 text-white p-5 h-full relative overflow-hidden flex flex-col">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-violet/20 rounded-full blur-3xl mix-blend-screen" />
+              <div className="absolute top-0 right-0 w-48 h-48 bg-blue/20 rounded-full blur-3xl mix-blend-screen" />
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-mint/10 rounded-full blur-3xl mix-blend-screen" />
               
               <div className="relative z-10 mb-4 flex justify-between items-start">
                 <div>
-                  <div className="text-[10px] font-bold text-violet uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                  <div className="text-[10px] font-bold text-blue uppercase tracking-wider mb-1 flex items-center gap-1.5">
                     <ShieldCheck size={12} /> AI Issue DNA
                   </div>
                   <h2 className="text-lg font-bold">Analysis Preview</h2>

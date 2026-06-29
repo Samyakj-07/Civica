@@ -127,13 +127,13 @@ export default function AIVerificationPage() {
              </span>
           ) : (
             <>
-              <span className="text-xs font-bold px-3 py-1.5 bg-violet/10 text-violet rounded-full border border-violet/20">
+              <span className="text-xs font-bold px-3 py-1.5 bg-blue/10 text-blue rounded-full border border-blue/20">
                 Repair Uploaded
               </span>
               <span className={`text-xs font-bold px-3 py-1.5 rounded-full border flex items-center gap-1.5 transition-colors ${isVerifying ? 'bg-amber/10 text-amber border-amber/20' : 'bg-mint/10 text-mint border-mint/20'}`}>
                 {isVerifying ? <><Loader2 size={12} className="animate-spin" /> AI Verification Running</> : <><CheckCircle2 size={12} /> AI Verified</>}
               </span>
-              <span className={`text-xs font-bold px-3 py-1.5 rounded-full border flex items-center gap-1.5 ${isVerified && !isVerifying ? 'bg-violet-deep text-white border-violet-deep/20' : 'bg-slate-100 text-slate-500 border-slate-200'}`}>
+              <span className={`text-xs font-bold px-3 py-1.5 rounded-full border flex items-center gap-1.5 ${isVerified && !isVerifying ? 'bg-blue-deep text-white border-blue-deep/20' : 'bg-slate-100 text-slate-500 border-slate-200'}`}>
                 {isVerified && !isVerifying ? <><ShieldCheck size={12} /> Payment Recommended</> : <><Lock size={12} /> Payment Locked</>}
               </span>
             </>
@@ -228,10 +228,10 @@ export default function AIVerificationPage() {
             <h2 className="text-sm font-bold uppercase tracking-wide text-slate-400">Civica AI Verdict</h2>
             
             <div className="bento-card bg-slate-900 text-white p-6 relative overflow-hidden h-full flex flex-col">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-violet/20 rounded-full blur-3xl mix-blend-screen pointer-events-none" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-blue/20 rounded-full blur-3xl mix-blend-screen pointer-events-none" />
               
               <div className="flex items-center gap-2 mb-6 relative z-10">
-                <Activity size={20} className={isVerifying ? "text-violet animate-pulse" : "text-mint"} />
+                <Activity size={20} className={isVerifying ? "text-blue animate-pulse" : "text-mint"} />
                 <h3 className="font-display font-bold text-lg">AI Verification Analysis</h3>
               </div>
 
@@ -240,9 +240,9 @@ export default function AIVerificationPage() {
                   <div className="flex justify-center mb-8">
                     <div className="relative">
                       <div className="w-20 h-20 border-4 border-slate-700 rounded-full" />
-                      <div className="w-20 h-20 border-4 border-violet border-t-transparent rounded-full animate-spin absolute inset-0" />
+                      <div className="w-20 h-20 border-4 border-blue border-t-transparent rounded-full animate-spin absolute inset-0" />
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <ShieldCheck size={24} className="text-violet animate-pulse" />
+                        <ShieldCheck size={24} className="text-blue animate-pulse" />
                       </div>
                     </div>
                   </div>
@@ -258,7 +258,7 @@ export default function AIVerificationPage() {
                         {verificationStep > idx ? (
                            <CheckCircle2 size={16} className="text-mint shrink-0" />
                         ) : verificationStep === idx ? (
-                           <Loader2 size={16} className="text-violet animate-spin shrink-0" />
+                           <Loader2 size={16} className="text-blue animate-spin shrink-0" />
                         ) : (
                            <div className="w-4 h-4 rounded-full border border-slate-700 shrink-0" />
                         )}
@@ -356,7 +356,7 @@ export default function AIVerificationPage() {
                   <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 flex flex-col gap-3">
                     <div className="flex justify-between items-center text-sm">
                       <span className="font-bold text-slate-500">Work Order ID</span>
-                      <span className="font-bold text-violet">{workOrder.workOrderId}</span>
+                      <span className="font-bold text-blue">{workOrder.workOrderId}</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
                       <span className="font-bold text-slate-500">Contractor</span>
@@ -376,7 +376,7 @@ export default function AIVerificationPage() {
                     <div className="flex items-center gap-4 pt-2">
                       <button 
                         onClick={handleApprovePayment}
-                        className="flex-1 bg-violet-deep text-white font-bold py-3 px-6 rounded-full shadow-lg shadow-violet/20 hover:bg-violet transition-colors flex justify-center items-center gap-2"
+                        className="flex-1 bg-blue-deep text-white font-bold py-3 px-6 rounded-full shadow-lg shadow-blue/20 hover:bg-blue transition-colors flex justify-center items-center gap-2"
                       >
                         <ShieldCheck size={18} />
                         Approve Payment
@@ -466,7 +466,7 @@ export default function AIVerificationPage() {
               <div className={`w-6 h-px mx-2 shrink-0 ${!isVerifying ? 'bg-mint' : 'bg-slate-200'}`} />
               
               {isVerifying ? (
-                 <span className="flex items-center gap-1.5 text-violet whitespace-nowrap bg-violet/10 px-2 py-1 rounded-full"><span className="w-1.5 h-1.5 rounded-full bg-violet animate-pulse" /> AI Verifying</span>
+                 <span className="flex items-center gap-1.5 text-blue whitespace-nowrap bg-blue/10 px-2 py-1 rounded-full"><span className="w-1.5 h-1.5 rounded-full bg-blue animate-pulse" /> AI Verifying</span>
               ) : (
                 <span className="flex items-center gap-1.5 text-mint whitespace-nowrap"><CheckSquare size={14}/> AI Verified</span>
               )}

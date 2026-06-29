@@ -166,13 +166,13 @@ export default function ContractorTaskPage() {
           <span className="font-semibold text-slate-500 text-sm">Contractor Task</span>
         </div>
         <div className="flex items-center gap-3">
-          <button onClick={saveNotes} className="text-sm font-bold text-ink hover:text-violet px-4 py-2 border border-slate-200 rounded-full hover:bg-slate-50 transition-colors">
+          <button onClick={saveNotes} className="text-sm font-bold text-ink hover:text-blue px-4 py-2 border border-slate-200 rounded-full hover:bg-slate-50 transition-colors">
             Save Progress
           </button>
           <button 
             disabled={!uploadComplete}
             onClick={handleSubmitProof}
-            className={`px-5 py-2 rounded-full font-bold text-sm shadow-md transition-colors ${uploadComplete ? 'bg-violet-deep text-white shadow-violet/20 hover:bg-violet' : 'bg-slate-100 text-slate-400 cursor-not-allowed shadow-none'}`}
+            className={`px-5 py-2 rounded-full font-bold text-sm shadow-md transition-colors ${uploadComplete ? 'bg-blue-deep text-white shadow-blue/20 hover:bg-blue' : 'bg-slate-100 text-slate-400 cursor-not-allowed shadow-none'}`}
           >
             Submit for AI Verification
           </button>
@@ -183,7 +183,7 @@ export default function ContractorTaskPage() {
         <div className="mb-4">
           <div className="flex items-center gap-3 mb-2">
             <h1 className="text-3xl font-display font-extrabold">Assigned Repair Task</h1>
-            <span className="text-xs font-bold px-2.5 py-1 bg-violet/10 text-violet rounded-full border border-violet/10">
+            <span className="text-xs font-bold px-2.5 py-1 bg-blue/10 text-blue rounded-full border border-blue/10">
               Contractor Assigned
             </span>
             <span className="text-xs font-bold px-2.5 py-1 bg-mint/10 text-mint rounded-full border border-mint/10">
@@ -217,7 +217,7 @@ export default function ContractorTaskPage() {
               <div className="space-y-3">
                 <div>
                   <div className="text-[10px] text-slate-400 font-bold mb-0.5 uppercase tracking-wider">Work Order ID</div>
-                  <div className="text-sm font-bold text-violet">{workOrder.workOrderId}</div>
+                  <div className="text-sm font-bold text-blue">{workOrder.workOrderId}</div>
                 </div>
                 <div>
                   <div className="text-[10px] text-slate-400 font-bold mb-0.5 uppercase tracking-wider">Issue Title</div>
@@ -262,7 +262,7 @@ export default function ContractorTaskPage() {
                 <h2 className="text-sm font-bold uppercase tracking-wide text-slate-400 flex items-center gap-2">
                   <CheckSquare size={16} /> Repair Checklist
                 </h2>
-                <div className="text-xs font-bold text-violet bg-violet/10 px-2 py-1 rounded">{completedSteps}/8 steps completed</div>
+                <div className="text-xs font-bold text-blue bg-blue/10 px-2 py-1 rounded">{completedSteps}/8 steps completed</div>
               </div>
               
               <div className="space-y-2.5">
@@ -301,7 +301,7 @@ export default function ContractorTaskPage() {
               <div 
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleDrop}
-                className={`relative border-2 border-dashed rounded-xl p-5 text-center transition-all duration-300 mb-4 ${afterRepairImageUrl ? 'border-mint bg-mint/5' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-violet/30'}`}
+                className={`relative border-2 border-dashed rounded-xl p-5 text-center transition-all duration-300 mb-4 ${afterRepairImageUrl ? 'border-mint bg-mint/5' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-blue/30'}`}
               >
                 <input 
                   type="file" 
@@ -319,7 +319,7 @@ export default function ContractorTaskPage() {
                       exit={{ opacity: 0 }}
                       className="flex flex-col items-center pointer-events-none"
                     >
-                      <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-violet mb-2">
+                      <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-blue mb-2">
                         <UploadCloud size={20} />
                       </div>
                       <p className="font-bold text-sm text-ink mb-1">Drop after-repair evidence here</p>
@@ -334,8 +334,8 @@ export default function ContractorTaskPage() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="flex flex-col items-center pointer-events-none"
                     >
-                      <div className="w-8 h-8 border-2 border-violet border-t-transparent rounded-full animate-spin mb-3" />
-                      <p className="font-bold text-sm text-violet mb-1">Uploading proof...</p>
+                      <div className="w-8 h-8 border-2 border-blue border-t-transparent rounded-full animate-spin mb-3" />
+                      <p className="font-bold text-sm text-blue mb-1">Uploading proof...</p>
                       <p className="text-xs text-muted">Encrypting GPS and timestamp data.</p>
                     </motion.div>
                   )}
@@ -370,7 +370,7 @@ export default function ContractorTaskPage() {
                     onBlur={saveNotes}
                     rows={2} 
                     placeholder="E.g., 2 bags of concrete, 1 patch kit..." 
-                    className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet text-sm bg-slate-50 resize-none" 
+                    className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue/50 focus:border-blue text-sm bg-slate-50 resize-none" 
                   />
                 </div>
                 <div>
@@ -381,7 +381,7 @@ export default function ContractorTaskPage() {
                     onBlur={saveNotes}
                     rows={2} 
                     placeholder="Details about the fix performed..." 
-                    className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet text-sm bg-slate-50 resize-none" 
+                    className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue/50 focus:border-blue text-sm bg-slate-50 resize-none" 
                   />
                 </div>
               </div>
@@ -486,7 +486,7 @@ export default function ContractorTaskPage() {
               <span className="flex items-center gap-1.5 text-mint whitespace-nowrap"><CheckSquare size={14}/> Work Order Created</span>
               <div className="w-6 h-px bg-mint mx-2 shrink-0" />
               {!uploadComplete ? (
-                <span className="flex items-center gap-1.5 text-violet whitespace-nowrap bg-violet/10 px-2 py-1 rounded-full"><span className="w-1.5 h-1.5 rounded-full bg-violet animate-pulse" /> Contractor Assigned</span>
+                <span className="flex items-center gap-1.5 text-blue whitespace-nowrap bg-blue/10 px-2 py-1 rounded-full"><span className="w-1.5 h-1.5 rounded-full bg-blue animate-pulse" /> Contractor Assigned</span>
               ) : (
                 <span className="flex items-center gap-1.5 text-mint whitespace-nowrap"><CheckSquare size={14}/> Contractor Assigned</span>
               )}
@@ -494,7 +494,7 @@ export default function ContractorTaskPage() {
               <div className={`w-6 h-px mx-2 shrink-0 ${uploadComplete ? 'bg-mint' : 'bg-slate-200'}`} />
               
               {uploadComplete ? (
-                <span className="flex items-center gap-1.5 text-violet whitespace-nowrap bg-violet/10 px-2 py-1 rounded-full"><span className="w-1.5 h-1.5 rounded-full bg-violet animate-pulse" /> Repair Uploaded</span>
+                <span className="flex items-center gap-1.5 text-blue whitespace-nowrap bg-blue/10 px-2 py-1 rounded-full"><span className="w-1.5 h-1.5 rounded-full bg-blue animate-pulse" /> Repair Uploaded</span>
               ) : (
                 <span className="text-slate-400 whitespace-nowrap">Repair Uploaded</span>
               )}
@@ -512,7 +512,7 @@ export default function ContractorTaskPage() {
             <button 
               disabled={!uploadComplete}
               onClick={handleSubmitProof}
-              className={`px-4 py-1.5 rounded-full font-bold text-xs shadow-md transition-colors ${uploadComplete ? 'bg-violet-deep text-white shadow-violet/20 hover:bg-violet' : 'bg-slate-100 text-slate-400 cursor-not-allowed shadow-none'}`}
+              className={`px-4 py-1.5 rounded-full font-bold text-xs shadow-md transition-colors ${uploadComplete ? 'bg-blue-deep text-white shadow-blue/20 hover:bg-blue' : 'bg-slate-100 text-slate-400 cursor-not-allowed shadow-none'}`}
             >
               Submit for AI Verification
             </button>

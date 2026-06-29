@@ -54,12 +54,12 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-slate-50 flex font-sans">
       {/* Left side: Brand/Hero */}
-      <div className="hidden lg:flex w-1/2 bg-violet-deep text-white p-12 flex-col justify-between relative overflow-hidden">
+      <div className="hidden lg:flex w-1/2 bg-blue-deep text-white p-12 flex-col justify-between relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent bg-[length:20px_20px]" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)' }} />
         
         <div className="relative z-10">
           <div className="flex items-center gap-2 font-display font-extrabold text-2xl mb-16">
-            <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-white text-violet-deep shadow-lg">
+            <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-white text-blue-deep shadow-lg">
               <ShieldCheck size={24} />
             </span>
             Civica
@@ -68,12 +68,12 @@ export default function LoginPage() {
           <h1 className="text-5xl font-display font-extrabold leading-tight mb-6">
             Accountability built into every civic repair.
           </h1>
-          <p className="text-violet-200 text-lg max-w-md font-medium leading-relaxed">
+          <p className="text-blue-200 text-lg max-w-md font-medium leading-relaxed">
             Verify repairs, manage work orders, and track civic accountability in real-time with AI-powered assurance.
           </p>
         </div>
         
-        <div className="relative z-10 flex gap-4 text-violet-200 text-sm font-bold">
+        <div className="relative z-10 flex gap-4 text-blue-200 text-sm font-bold">
            <span>© 2026 Civica</span>
            <span>•</span>
            <span>Hackathon Demo</span>
@@ -87,7 +87,7 @@ export default function LoginPage() {
         </Link>
         <div className="w-full max-w-md mt-8 lg:mt-0">
           <div className="lg:hidden flex items-center justify-center gap-2 font-display font-extrabold text-2xl mb-8 text-ink">
-            <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-violet-deep text-white shadow-md">
+            <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-deep text-white shadow-md">
               <ShieldCheck size={24} />
             </span>
             Civica
@@ -106,7 +106,7 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-violet focus:ring-2 focus:ring-violet/20 transition-all font-medium bg-white"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-all font-medium bg-white"
                 placeholder="name@civica.ai"
               />
             </div>
@@ -117,14 +117,14 @@ export default function LoginPage() {
                 required
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-violet focus:ring-2 focus:ring-violet/20 transition-all font-medium bg-white"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-all font-medium bg-white"
                 placeholder="••••••••"
               />
             </div>
             <button 
               type="submit" 
               disabled={isLoading}
-              className="w-full py-3 mt-4 bg-violet-deep text-white rounded-xl font-bold shadow-lg shadow-violet/20 hover:bg-violet transition-colors flex items-center justify-center gap-2"
+              className="w-full py-3 mt-4 bg-blue-deep text-white rounded-xl font-bold shadow-lg shadow-blue/20 hover:bg-blue transition-colors flex items-center justify-center gap-2"
             >
               {isLoading ? <Loader2 size={20} className="animate-spin" /> : "Sign In"}
             </button>
@@ -173,7 +173,7 @@ export default function LoginPage() {
           <p className="mt-8 text-center text-xs text-slate-400 font-medium">
             Demo credentials are provided for hackathon judging.
             <br />
-            Need a custom account? <Link to="/signup" className="text-violet font-bold hover:underline">Sign up</Link>
+            Need a custom account? <Link to="/signup" className="text-blue font-bold hover:underline">Sign up</Link>
           </p>
 
         </div>

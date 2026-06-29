@@ -141,7 +141,7 @@ Repairs successfully processed through the Civica AI Assurance Engine.
           Complete your first Civica repair workflow to generate verified impact reports.
         </p>
         <div className="flex gap-4">
-          <button onClick={() => navigate('/create-case')} className="px-8 py-3 bg-violet-deep text-white rounded-full font-bold shadow-lg shadow-violet/20 hover:bg-violet transition-colors">
+          <button onClick={() => navigate('/create-case')} className="px-8 py-3 bg-blue-deep text-white rounded-full font-bold shadow-lg shadow-blue/20 hover:bg-blue transition-colors">
             Create Civic Case
           </button>
           <button onClick={() => navigate('/dashboard')} className="px-8 py-3 bg-white text-ink border border-slate-200 rounded-full font-bold shadow-sm hover:bg-slate-50 transition-colors">
@@ -171,14 +171,14 @@ Repairs successfully processed through the Civica AI Assurance Engine.
               placeholder="Search reports..." 
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-violet/50"
+              className="pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue/50"
             />
           </div>
           <div className="relative">
             <select 
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="appearance-none pl-10 pr-8 py-2 bg-white border border-slate-200 rounded-full text-sm font-bold text-slate-600 focus:outline-none focus:ring-2 focus:ring-violet/50"
+              className="appearance-none pl-10 pr-8 py-2 bg-white border border-slate-200 rounded-full text-sm font-bold text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue/50"
             >
               <option>Today</option>
               <option>7 Days</option>
@@ -205,9 +205,9 @@ Repairs successfully processed through the Civica AI Assurance Engine.
         </div>
 
         {/* SECTION 2: Impact Story Panel */}
-        <div className="bento-card bg-violet-deep text-white p-8 relative overflow-hidden shadow-lg shadow-violet/10 mb-6">
+        <div className="bento-card bg-blue-deep text-white p-8 relative overflow-hidden shadow-lg shadow-blue/10 mb-6">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl mix-blend-overlay pointer-events-none" />
-          <h2 className="text-sm font-bold uppercase tracking-wide text-violet-100 mb-4 flex items-center gap-2"><BarChart3 size={18}/> Civic Impact Story</h2>
+          <h2 className="text-sm font-bold uppercase tracking-wide text-blue-100 mb-4 flex items-center gap-2"><BarChart3 size={18}/> Civic Impact Story</h2>
           <p className="text-xl font-medium leading-relaxed max-w-4xl relative z-10 mb-6">
             In this reporting period, Civica processed <strong className="text-mint">{issues.length}</strong> civic cases, verified <strong className="text-mint">{verifiedRepairs.length}</strong> repairs using AI, released <strong className="text-mint">₹{releasedAmount.toLocaleString()}</strong> in contractor payments, and flagged <strong className="text-coral">{paymentHolds.length}</strong> cases for rework or hold. The average repair confidence was <strong className="text-mint">{avgConfidence}%</strong>, helping admins release payments with stronger proof and accountability.
           </p>
@@ -247,7 +247,7 @@ Repairs successfully processed through the Civica AI Assurance Engine.
             <div className="text-[10px] text-slate-400 font-semibold">Across verified cases</div>
           </div>
           <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-            <div className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-2 flex items-center gap-1.5"><CheckSquare size={14} className="text-violet"/> Resolution</div>
+            <div className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-2 flex items-center gap-1.5"><CheckSquare size={14} className="text-blue"/> Resolution</div>
             <div className="text-3xl font-extrabold text-ink mb-1">{resProgress}%</div>
             <div className="text-[10px] text-slate-400 font-semibold">Cases fully closed</div>
           </div>
@@ -261,9 +261,9 @@ Repairs successfully processed through the Civica AI Assurance Engine.
             <div className="space-y-4">
               {[
                 { label: '1. Reported', count: funnel.reported, color: 'bg-slate-200', text: 'text-slate-600' },
-                { label: '2. AI Reviewed', count: funnel.reviewed, color: 'bg-violet/20', text: 'text-slate-700' },
-                { label: '3. Assigned', count: funnel.assigned, color: 'bg-violet/40', text: 'text-slate-800' },
-                { label: '4. Verified', count: funnel.verified, color: 'bg-violet/70', text: 'text-white' },
+                { label: '2. AI Reviewed', count: funnel.reviewed, color: 'bg-blue/20', text: 'text-slate-700' },
+                { label: '3. Assigned', count: funnel.assigned, color: 'bg-blue/40', text: 'text-slate-800' },
+                { label: '4. Verified', count: funnel.verified, color: 'bg-blue/70', text: 'text-white' },
                 { label: '5. Paid', count: funnel.paid, color: 'bg-mint', text: 'text-white' },
               ].map((stage, i) => (
                 <div key={i} className="relative h-10 bg-slate-50 rounded-lg overflow-hidden flex items-center border border-slate-100">
@@ -291,7 +291,7 @@ Repairs successfully processed through the Civica AI Assurance Engine.
                     <span className="text-xs font-bold text-slate-500">{cat.count} <span className="text-[10px] text-slate-400 font-normal">({cat.percentage}%)</span></span>
                   </div>
                   <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-violet" style={{ width: `${cat.percentage}%` }} />
+                    <div className="h-full bg-blue" style={{ width: `${cat.percentage}%` }} />
                   </div>
                 </div>
               )) : (
@@ -348,7 +348,7 @@ Repairs successfully processed through the Civica AI Assurance Engine.
                       <td className="px-6 py-4">
                          <span className={`inline-flex px-2.5 py-1 rounded-full text-[10px] font-bold items-center gap-1
                             ${wo.status === 'Payment Released' ? 'bg-mint/10 text-mint' : 
-                              wo.verificationResult?.recommendation === 'Release Payment' ? 'bg-violet/10 text-violet' :
+                              wo.verificationResult?.recommendation === 'Release Payment' ? 'bg-blue/10 text-blue' :
                               'bg-amber/10 text-amber'}`
                           }>
                             {wo.status === 'Payment Released' ? 'Released' : wo.verificationResult?.recommendation === 'Release Payment' ? 'Recommended' : 'Locked'}
@@ -359,7 +359,7 @@ Repairs successfully processed through the Civica AI Assurance Engine.
                           Audit
                         </button>
                         {wo.status !== 'Payment Released' && wo.verificationResult?.recommendation === 'Release Payment' && (
-                          <button onClick={() => handleApprovePayment(wo)} className="text-[10px] font-bold text-white bg-violet hover:bg-violet-deep px-3 py-1.5 rounded transition-colors">
+                          <button onClick={() => handleApprovePayment(wo)} className="text-[10px] font-bold text-white bg-blue hover:bg-blue-deep px-3 py-1.5 rounded transition-colors">
                             Approve
                           </button>
                         )}
@@ -436,7 +436,7 @@ Repairs successfully processed through the Civica AI Assurance Engine.
                <h2 className="text-sm font-bold uppercase tracking-wide text-slate-500 mb-4 flex items-center gap-2"><Download size={16}/> Export Center</h2>
                
                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                 <button onClick={exportImpactReport} className="flex items-center gap-2 px-4 py-3 bg-violet/5 hover:bg-violet/10 text-violet font-bold text-xs rounded-xl border border-violet/10 transition-colors text-left">
+                 <button onClick={exportImpactReport} className="flex items-center gap-2 px-4 py-3 bg-blue/5 hover:bg-blue/10 text-blue font-bold text-xs rounded-xl border border-blue/10 transition-colors text-left">
                     <FileText size={16} className="shrink-0" /> 
                     <span>Download Impact Report (.txt)</span>
                  </button>

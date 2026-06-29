@@ -22,7 +22,7 @@ export default function Layout({ children }: LayoutProps) {
   const getRoleColor = (role: string) => {
     switch (role) {
       case 'citizen': return 'bg-blue-500/10 text-blue-500 border-blue-500/20';
-      case 'admin': return 'bg-violet/10 text-violet border-violet/20';
+      case 'admin': return 'bg-blue/10 text-blue border-blue/20';
       case 'contractor': return 'bg-mint/10 text-mint border-mint/20';
       case 'auditor': return 'bg-amber/10 text-amber border-amber/20';
       default: return 'bg-slate-100 text-slate-500 border-slate-200';
