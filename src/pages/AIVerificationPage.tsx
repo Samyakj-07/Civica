@@ -113,21 +113,12 @@ export default function AIVerificationPage() {
       className="min-h-screen bg-[#FAFAFA] text-ink font-sans flex flex-col"
     >
       {/* Navbar */}
-      <header className="bg-white border-b border-slate-200 px-6 py-3 flex justify-between items-center sticky top-0 z-50">
+      <div className="bg-white border-b border-slate-200 px-6 py-3 flex justify-between items-center">
         <div className="flex items-center gap-4">
           <Link to={`/contractor-task/${workOrder.id}`} className="p-2 hover:bg-slate-100 rounded-full transition-colors text-muted hover:text-ink">
             <ArrowLeft size={20} />
           </Link>
-          <div className="flex items-center gap-2 font-display font-bold text-lg text-ink">
-            <span className="flex items-center justify-center w-6 h-6 rounded bg-ink text-white shadow-sm">
-              <ShieldCheck size={14} />
-            </span>
-            Civica
-          </div>
-          <div className="h-4 w-px bg-slate-300 mx-2" />
           <span className="font-semibold text-slate-500 text-sm">AI Verification</span>
-          <div className="h-4 w-px bg-slate-300 mx-2" />
-          <Link to="/dashboard" className="font-semibold text-slate-400 text-sm hover:text-ink transition-colors">Dashboard</Link>
         </div>
         <div className="flex items-center gap-2">
           {isPaymentReleased ? (
@@ -148,7 +139,7 @@ export default function AIVerificationPage() {
             </>
           )}
         </div>
-      </header>
+      </div>
 
       <main className="max-w-[1400px] mx-auto p-4 md:p-6 flex-1 w-full flex flex-col gap-6">
         <div className="mb-2">

@@ -160,17 +160,8 @@ Repairs successfully processed through the Civica AI Assurance Engine.
       style={{ backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '20px 20px' }}
     >
       {/* Top Navigation */}
-      <header className="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-50 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 font-display font-extrabold text-xl text-ink">
-            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-ink text-white shadow-sm">
-              <ShieldCheck size={18} />
-            </span>
-            Civica
-          </div>
-          <div className="h-5 w-px bg-slate-300 mx-2" />
-          <span className="font-semibold text-slate-500 text-sm">Reports & Impact</span>
-        </div>
+      <div className="bg-white border-b border-slate-200 px-6 py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div></div>
         
         <div className="flex items-center gap-4 w-full sm:w-auto">
           <div className="relative hidden md:block">
@@ -204,7 +195,7 @@ Repairs successfully processed through the Civica AI Assurance Engine.
             Back to Dashboard
           </Link>
         </div>
-      </header>
+      </div>
 
       <main className="max-w-[1600px] mx-auto p-4 md:p-6 flex-1 w-full space-y-6 mt-2">
         

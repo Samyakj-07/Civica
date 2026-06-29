@@ -159,13 +159,7 @@ export default function DashboardPage() {
       style={{ backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '20px 20px' }}
     >
       {/* Top Navigation */}
-      <header className="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-50 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="flex items-center gap-2 font-display font-extrabold text-xl text-ink">
-          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-ink text-white shadow-sm">
-            <ShieldCheck size={18} />
-          </span>
-          Civica Command
-        </div>
+      <div className="bg-white border-b border-slate-200 px-6 py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         
         <div className="flex-1 max-w-xl w-full relative">
           <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -185,11 +179,8 @@ export default function DashboardPage() {
           <Link to="/create-case" className="flex items-center gap-2 px-4 py-2 bg-violet-deep text-white rounded-full text-sm font-bold shadow-md shadow-violet/20 hover:bg-violet transition-colors">
             <Plus size={16} /> Create Civic Case
           </Link>
-          <div className="w-10 h-10 rounded-full bg-slate-200 border-2 border-white shadow-sm overflow-hidden flex-shrink-0 ml-2">
-             <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=256&auto=format&fit=crop" alt="Admin" className="w-full h-full object-cover" />
-          </div>
         </div>
-      </header>
+      </div>
 
       <main className="max-w-[1600px] mx-auto p-4 md:p-6 space-y-6 mt-4">
         
